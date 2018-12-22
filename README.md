@@ -4,7 +4,7 @@
 
 **A few words in the beginning**
 * Version: 1.0.0 
-* Frameworks: OpenCPU ( M66, MC60, BC66 ), Arduino ( BC66) ... next other OpenLinux, ThreadX
+* Frameworks: now OpenCPU ( M66, MC60, BC66 ), Arduino ( BC66 ) ... next OpenLinux, ThreadX
 * Modules: now M66, M26, MC60, MC20 BC66, BC26 ... next BG96, EC21, EC25 ...
 
 **it should look like this...**
@@ -32,6 +32,7 @@ https://github.com/Wiz-IO/platform-quectel.git
 * https://community.platformio.org
 * https://www.quectel.com/support/contact.htm
 * https://www.comet.bg/?cid=92
+*
 
 **If you want to help / support - contact me**
 # Other - Comming soon....
