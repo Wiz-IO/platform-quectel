@@ -7,7 +7,7 @@
 * Frameworks: OpenCPU ( M66, MC60, BC66 ), Arduino ( BC66) ... next other OpenLinux, ThreadX
 * Modules: now M66, M26, MC60, MC20 BC66, BC26 ... next BG96, EC21, EC25 ...
 
-**it should look like this...
+**it should look like this...**
 
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/platform.png) 
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/boards.png) 
