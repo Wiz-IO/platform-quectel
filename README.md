@@ -29,7 +29,7 @@ https://github.com/Wiz-IO/platform-quectel.git
 
 **Support links**
 
-* http://platformio.org
+* https://community.platformio.org
 * https://www.quectel.com/support/contact.htm
 * https://www.comet.bg/?cid=92
 
