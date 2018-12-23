@@ -14,43 +14,41 @@
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json",
-
     {
         "framework-quectel": [
             {
                 "type": "git",
-                "url": "https://github.com/Wiz-IO/framework-quectel.git", 
-                "sha1": "", 
-                "system": "*", 
+                "url": "https://github.com/Wiz-IO/framework-quectel.git",
+                "sha1": "",
+                "system": "*",
                 "version": "1.0.0"
             }
-        ], 
+        ],
         "tool-opencpu": [
             {
-                "url": "http://wizio.eu/platformio/tool-opencpu-1.0.0.tar.gz", 
-                "sha1": "95715f838682c48a4d4d678ab6704cc8a6720e29", 
+                "url": "http://wizio.eu/platformio/tool-opencpu-1.0.0.tar.gz",
+                "sha1": "95715f838682c48a4d4d678ab6704cc8a6720e29",
                 "system": [
-                    "windows", 
-                    "windows_amd64", 
+                    "windows",
+                    "windows_amd64",
                     "windows_x86"
-                ], 
+                ],
                 "version": "1.0.0"
             }
-        ], 
+        ],
         "toolchain-gccarmnoneeabi": [
             {
-                "sha1": "0e4b61c1304a12ea5df9a894a918d35b33201a77", 
+                "sha1": "0e4b61c1304a12ea5df9a894a918d35b33201a77",
                 "system": [
-                  "windows", 
-                  "windows_amd64", 
+                  "windows",
+                  "windows_amd64",
                   "windows_x86"
-                ], 
-                "url": "http://dl.platformio.org/packages/toolchain-gccarmnoneeabi-windows-1.70201.0.tar.gz", 
+                ],
+                "url": "http://dl.platformio.org/packages/toolchain-gccarmnoneeabi-windows-1.70201.0.tar.gz",
                 "version": "1.70201.0"
             }
         ]
     }
-
   ],
   "frameworks": {
       "opencpu": {
@@ -68,22 +66,22 @@
       "arduino": {
         "package": "framework-quectel",
         "script": "builder/frameworks/arduino.py"
-      }                                 
+      }
   },
   "packages": {
     "framework-quectel": {
         "type": "framework",
         "optional": true,
         "version": ">=1.0.0"
-    },  
+    },
     "toolchain-gccarmnoneeabi": {
         "type": "toolchain",
         "version": ">=1.40803.0"
-    },   
+    },
     "tool-opencpu": {
         "type": "uploader",
         "optional": true,
         "version": ">=1.0.0"
-    }    
+    }
   }
 }

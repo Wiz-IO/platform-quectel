@@ -1,0 +1,33 @@
+{
+  "name": "Quectel MC20 module",
+  "url": "https://www.quectel.com/product/mc60.htm",
+  "build": {
+    "core": "mc60",
+    "f_cpu": "260000000L",
+    "mcu": "ARM, MT2503",
+    "cpu": "arm5",
+    "variant": "mc60"
+  },
+  "debug": {
+    "tools": {
+      "uart": {
+        "onboard": true,
+        "extra_cmds": [],
+        "load_cmd": [],
+        "server": {
+          "arguments": [],
+          "executable": "exe",
+          "package": "tool-opencpu"
+        }
+      }
+    }
+  },  
+  "frameworks": [
+    "opencpu", "arduino"
+  ],
+  "vendor": "Quectel",
+  "upload": {
+        "maximum_ram_size": 102400,
+        "maximum_size": 327680
+  }
+}
