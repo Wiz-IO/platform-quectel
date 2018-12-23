@@ -2,7 +2,7 @@
   "name": "quectel",
   "title": "Quectel",
   "description": "Quectel development platform 2018 Georgi Angelov",
-  "url": "http://platformio.org/platforms/quectel",
+  "url": "https://github.com/Wiz-IO/platform-quectel",
   "homepage": "http://www.wizio.eu/",
   "license": "Apache-2.0",
   "engines": { "platformio": "^3.0.0" },
