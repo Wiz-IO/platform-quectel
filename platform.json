@@ -1,0 +1,53 @@
+{
+  "name": "quectel",
+  "title": "Quectel",
+  "description": "Quectel development platform 2018 Georgi Angelov",
+  "url": "http://platformio.org/platforms/quectel",
+  "homepage": "http://www.wizio.eu/",
+  "license": "Apache-2.0",
+  "engines": { "platformio": "^3.0.0" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wiz-IO/platform-quectel.git"
+  },
+  "version": "1.0.0",
+  "packageRepositories": [
+    "https://dl.bintray.com/platformio/dl-packages/manifest.json",
+    "http://dl.platformio.org/packages/manifest.json",
+    "http://wizio.eu/platformio/platformio-quectel-packages.json"
+  ],
+  "frameworks": {
+      "opencpu": {
+        "package": "framework-quectel",
+        "script": "builder/frameworks/opencpu.py"
+      },
+      "openlinux": {
+        "package": "framework-quectel",
+        "script": "builder/frameworks/openlinux.py"
+      },
+      "threadx": {
+        "package": "framework-quectel",
+        "script": "builder/frameworks/threadx.py"
+      },
+      "arduino": {
+        "package": "framework-quectel",
+        "script": "builder/frameworks/arduino.py"
+      }                                 
+  },
+  "packages": {
+    "framework-quectel": {
+        "type": "framework",
+        "optional": true,
+        "version": ">=1.0.0"
+    },  
+    "toolchain-gccarmnoneeabi": {
+        "type": "toolchain",
+        "version": ">=1.40803.0"
+    },   
+    "tool-opencpu": {
+        "type": "uploader",
+        "optional": true,
+        "version": ">=1.0.0"
+    }    
+  }
+}
