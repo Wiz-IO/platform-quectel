@@ -14,7 +14,7 @@
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json",
-    "http://wizio.eu/platformio/platformio-quectel-packages.json"
+    "https://raw.githubusercontent.com/Wiz-IO/platform-quectel/master/platformio-quectel-packages.json"
   ],
   "frameworks": {
       "opencpu": {
