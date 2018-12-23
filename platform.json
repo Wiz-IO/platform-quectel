@@ -17,7 +17,6 @@
     {
         "framework-quectel": [
             {
-                "type": "git",
                 "url": "https://github.com/Wiz-IO/framework-quectel.git",
                 "sha1": "",
                 "system": "*",
