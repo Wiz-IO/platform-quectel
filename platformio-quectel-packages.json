@@ -10,7 +10,7 @@
     "tool-opencpu": [
         {
             "url": "http://wizio.eu/platformio/tool-opencpu-1.0.0.tar.gz", 
-            "sha1": "", 
+            "sha1": "95715f838682c48a4d4d678ab6704cc8a6720e29", 
             "system": [
                 "windows", 
                 "windows_amd64", 
