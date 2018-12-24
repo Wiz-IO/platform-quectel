@@ -15,13 +15,6 @@
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json",
     {
-        "framework-quectel": [
-            {
-                "url": "https://github.com/Wiz-IO/framework-quectel.git",
-                "system": "*",
-                "version": "1.0.0"
-            }
-        ],
         "tool-opencpu": [
             {
                 "url": "http://wizio.eu/platformio/tool-opencpu-1.0.0.tar.gz",
@@ -70,7 +63,7 @@
     "framework-quectel": {
         "type": "framework",
         "optional": true,
-        "version": ">=1.0.0"
+        "version": "https://github.com/Wiz-IO/framework-quectel"
     },
     "toolchain-gccarmnoneeabi": {
         "type": "toolchain",
