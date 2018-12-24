@@ -17,7 +17,7 @@
     {
         "framework-quectel": [
             {
-                "url": "https://github.com/Wiz-IO/framework-quectel.git",
+                "url": "http://github.com/Wiz-IO/platform-quectel/zipball/master/",
                 "sha1": "",
                 "system": "*",
                 "version": "1.0.0"
