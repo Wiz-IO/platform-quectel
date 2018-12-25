@@ -51,7 +51,7 @@
     "framework-quectel": {
         "type": "framework",
         "optional": true,
-        "version": "https://github.com/Wiz-IO/framework-quectel"
+        "version": "https://github.com/Wiz-IO/framework-quectel.git"
     },
     "toolchain-gccarmnoneeabi": {
         "type": "toolchain",
