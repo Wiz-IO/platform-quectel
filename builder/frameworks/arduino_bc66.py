@@ -17,8 +17,12 @@ def bc66_init(env):
     VARIANT = env.BoardConfig().get("build.variant")
     CORE = env.BoardConfig().get("build.core")  # "bc66"
     SUB  = env.BoardConfig().get("build.sub")   # "nb" or "ex"
-    LIB  = ""          
-
+    LIB = "" 
+    SUB = ""
+    try:
+        SUB  = env.BoardConfig().get("build.sub")   # "nb" or "ex"
+    except:
+        SUB = "nb"          
     if SUB.upper() == "NB" or SUB.upper() == "" : # standart core
         SUB = "nb"
         LIB = ""
