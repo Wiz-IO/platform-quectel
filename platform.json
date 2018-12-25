@@ -26,18 +26,6 @@
                 ],
                 "version": "1.0.0"
             }
-        ],
-        "toolchain-gccarmnoneeabi": [
-            {
-                "sha1": "0e4b61c1304a12ea5df9a894a918d35b33201a77",
-                "system": [
-                  "windows",
-                  "windows_amd64",
-                  "windows_x86"
-                ],
-                "url": "http://dl.platformio.org/packages/toolchain-gccarmnoneeabi-windows-1.70201.0.tar.gz",
-                "version": "1.70201.0"
-            }
         ]
     }
   ],
