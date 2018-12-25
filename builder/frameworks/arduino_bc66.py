@@ -16,7 +16,6 @@ def bc66_init(env):
     TOOL_DIR = env.PioPlatform().get_package_dir("tool-opencpu")
     VARIANT = env.BoardConfig().get("build.variant")
     CORE = env.BoardConfig().get("build.core")  # "bc66"
-    SUB  = env.BoardConfig().get("build.sub")   # "nb" or "ex"
     LIB = "" 
     SUB = ""
     try:
