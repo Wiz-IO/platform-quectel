@@ -15,25 +15,26 @@ def bc66_header(target, source, env):
 def bc66_init(env):
     TOOL_DIR = env.PioPlatform().get_package_dir("tool-opencpu")
     VARIANT = env.BoardConfig().get("build.variant")
-    CORE = env.BoardConfig().get("build.core")  # "bc66"
+    CORE = env.BoardConfig().get("build.core") # bc66
+    FW = env.BoardConfig().get("build.fw", "") # BC66NBR01A04V01
     LIB = "" 
-    SUB = ""
-    try:
-        SUB  = env.BoardConfig().get("build.sub")   # "nb" or "ex"
-    except:
-        SUB = "nb"          
-    if SUB.upper() == "NB" or SUB.upper() == "" : # standart core
-        SUB = "nb"
-        LIB = ""
+    SUB = "nb"    
+    if FW == "":
         print('\033[92m' + "<<<<<<<<<<<< Arduino BC66 NORMAL API >>>>>>>>>>>>")
-    elif SUB.upper() == "EX" : # extended core
-        LIB  = env.BoardConfig().get("build.lib") # libname for API ex 
+    elif FW.upper().startswith("BC66NA"):
+        sys.stderr.write("Firmware obsolete: %s\n" % FW)
+        env.Exit(1)        
+    elif FW.upper().startswith("BC66NB"):
+        SUB = "ex"
+        LIB = FW[6:] # R01A04V01, R01A05V01
         print('\033[94m' + "<<<<<<<<<<<< Arduino BC66 EXTENDED API: %s >>>>>>>>>>>>" % LIB)
     else:
-        sys.stderr.write("Unknown Arduino core: %s\n" % SUB)
+        sys.stderr.write("Unknown Firmware: %s\n" % FW)
         env.Exit(1)
-
     CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "arduino", "cores", CORE, SUB)
+    if SUB == "ex" and not os.path.isfile( join(CORE_DIR, "interface", "lib"+LIB+".a") ):
+        sys.stderr.write("Unknown Library: %s\n" % LIB)
+        env.Exit(1)
 
     env.Append(
         ASFLAGS = ["-x", "assembler-with-cpp"],
