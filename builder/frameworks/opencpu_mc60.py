@@ -11,7 +11,7 @@ def mc60_header(target, source, env):
     makeCFG( source[0].path )
 
 def mc60_init(env):
-    TOOL_DIR = env.PioPlatform().get_package_dir("tool-opencpu")
+    TOOL_DIR = env.PioPlatform().get_package_dir("tool-quectel")
     CORE = env.BoardConfig().get("build.core") # "mc60"
     CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "opencpu", CORE)    
 
