@@ -2,7 +2,7 @@
 # http://www.wizio.eu/
 # https://github.com/Wiz-IO
 
-import sys
+import sys, os
 from os.path import join
 from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
 from bin_bc66 import makeHDR, makeCFG
