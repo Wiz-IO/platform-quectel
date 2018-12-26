@@ -13,7 +13,7 @@ def bc66_header(target, source, env):
 
 
 def bc66_init(env):
-    TOOL_DIR = env.PioPlatform().get_package_dir("tool-opencpu")
+    TOOL_DIR = env.PioPlatform().get_package_dir("tool-quectel")
     VARIANT = env.BoardConfig().get("build.variant")
     CORE = env.BoardConfig().get("build.core") # bc66
     FW = env.BoardConfig().get("build.fw", "") # BC66NBR01A04V01
