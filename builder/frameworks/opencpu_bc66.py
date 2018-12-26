@@ -11,7 +11,7 @@ def bc66_header(target, source, env):
     makeCFG( source[0].path )
 
 def bc66_init(env):
-    TOOL_DIR = env.PioPlatform().get_package_dir("tool-opencpu")
+    TOOL_DIR = env.PioPlatform().get_package_dir("tool-quectel")
     CORE = env.BoardConfig().get("build.core") # "bc66"
     CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "opencpu", CORE)
     env.Append(
