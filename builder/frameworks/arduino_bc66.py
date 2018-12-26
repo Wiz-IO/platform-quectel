@@ -36,6 +36,10 @@ def bc66_init(env):
         sys.stderr.write("Unknown Library: %s\n" % LIB)
         env.Exit(1)
 
+    UPL = env.get("PLATFORM")
+    if UPL == "win32" or UPL == "win64":
+        UPL = "windows"        
+        
     env.Append(
         ASFLAGS = ["-x", "assembler-with-cpp"],
         CPPDEFINES = [ "CORE_"+CORE.upper() ], # -D
@@ -93,7 +97,7 @@ def bc66_init(env):
             )        
         ), # dict
 
-        UPLOADER = join(TOOL_DIR, CORE, "$PLATFORM", "coda"), 
+        UPLOADER = join(TOOL_DIR, CORE, UPL, "coda"), 
         UPLOADERFLAGS = [ '"$BUILD_DIR/${PROGNAME}.cfg"', "--UART", "$UPLOAD_PORT", "-d" ],
         UPLOADCMD = '"$UPLOADER" $UPLOADERFLAGS',
 
