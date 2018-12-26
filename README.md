@@ -15,6 +15,10 @@
 Video 
 https://youtu.be/YvHy1MLqH70
 
+
+**[WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)**
+
+
 **Install**
 
 PIO Home > Platforms > Advanced Installation > Paste 
