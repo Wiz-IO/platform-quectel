@@ -57,7 +57,7 @@
         "type": "toolchain",
         "version": ">=1.40803.0"
     },
-    "tool-opencpu": {
+    "tool-quectel": {
         "type": "uploader",
         "optional": true,
         "version": ">=1.0.0"
