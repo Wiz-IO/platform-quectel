@@ -10,13 +10,10 @@
 **it should look like this...**
 
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/platform.png) 
+Video  https://youtu.be/YvHy1MLqH70
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/boards.png) 
 
-Video 
-https://youtu.be/YvHy1MLqH70
-
-
-**[WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)**
+**How to: [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)**
 
 **Install**
 
