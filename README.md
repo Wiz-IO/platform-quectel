@@ -1,6 +1,7 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 # NOT READY - Comming soon....
+**(can be used)**
 
 **A few words in the beginning**
 * Version: 1.0.0 
