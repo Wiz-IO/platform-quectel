@@ -102,14 +102,12 @@ def bc66_init(env):
         ), # dict
         
 ### WINDOWS UPLOADER ###
-        #UPLOADER = join(TOOL_DIR, CORE, UPL, "coda"), 
+        #UPLOADER = join(env.PioPlatform().get_package_dir("tool-quectel"), CORE, UPL, "coda"), 
         #UPLOADERFLAGS = [ '"$BUILD_DIR/${PROGNAME}.cfg"', "--UART", "$UPLOAD_PORT", "-d" ],
         #UPLOADCMD = '"$UPLOADER" $UPLOADERFLAGS',
-### PYTHON UPLOADER ###
-        UPLOADER = '"$PYTHONEXE"',   
-        UPLOADERFLAGS = [ '"' + join(DIR, "frameworks", "bc66_uploader.py") + '"', '"$BUILD_DIR/${PROGNAME}.bin"', "$UPLOAD_PORT" ],
-        #UPLOADCMD = '"$UPLOADER" $UPLOADERFLAGS'
+### PYTHON UPLOADER ### 
         UPLOADCMD = bc66_uploader
+        
     ) # env.Append    
 
     libs = []
