@@ -47,7 +47,7 @@ import inspect
 DEBUG = False
 
 def ERROR(message):
-    print( "\n\033[31mERROR: {}\n".format(message) )
+    print( "\n\033[31mERROR: {}\n\r".format(message) )
     exit(2)
 
 def ASSERT(flag, message):
