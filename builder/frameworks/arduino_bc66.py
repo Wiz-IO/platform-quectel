@@ -16,8 +16,6 @@ def bc66_header(target, source, env):
     makeCFG( source[0].path )
 
 def bc66_init(env):
-    DIR = os.path.dirname(env.get("BUILD_SCRIPT"))
-    TOOL_DIR = env.PioPlatform().get_package_dir("tool-quectel")
     VARIANT = env.BoardConfig().get("build.variant")
     CORE = env.BoardConfig().get("build.core") # bc66
     FW = env.BoardConfig().get("build.fw", "") # BC66NBR01A04V01
