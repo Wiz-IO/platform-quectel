@@ -401,8 +401,9 @@ class MT2625:
 
 def bc66_upload(file_name, com_port):
     m = MT2625( Serial( com_port, 115200 ) ) 
-    m.connect( 5.0 )    
+    m.connect( 9.0 )    
     m.da_start()  
     m.uploadApplication( "bc66", file_name)
     m.da_finish()
     return 0
+   
