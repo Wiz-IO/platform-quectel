@@ -95,7 +95,6 @@ def bc66_init(env):
             )        
         ), # dict
         
-### PYTHON UPLOADER ### 
         UPLOADCMD = bc66_uploader
         
     ) # env.Append    
