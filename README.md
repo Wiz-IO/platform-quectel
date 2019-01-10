@@ -5,6 +5,7 @@
 * Frameworks: now OpenCPU ( M66, MC60, BC66 ), Arduino ( BC66 ) ... next OpenLinux, ThreadX
 * Modules: now M66, M26, MC60, MC20 BC66, BC26 ... next BG96, BG36, EC21, EC25 ...
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
+* Added Python uploaders
 
 **it should look like this...**
 
