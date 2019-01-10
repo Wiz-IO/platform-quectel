@@ -5,13 +5,16 @@
 from os.path import join
 from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
 from bin_m66 import makeHDR, makeCFG
+from pyMT6261 import m66_upload
+
+def m66_uploader(target, source, env):
+    return m66_upload(join(env.get("BUILD_DIR"), "program.bin"), env.get("UPLOAD_PORT")) 
 
 def m66_header(target, source, env):
     makeHDR( source[0].path )
     makeCFG( source[0].path )
 
 def m66_init(env):
-    TOOL_DIR = env.PioPlatform().get_package_dir("tool-quectel")
     CORE = env.BoardConfig().get("build.core") # "m66"
     CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "opencpu", CORE)    
 
@@ -68,10 +71,8 @@ def m66_init(env):
                 suffix = ".bin"
             )        
         ), #dict
-
-        UPLOADER=join(".", TOOL_DIR, "QFlash_V4.0", "QFlash_V4.0"), # We are waithing Quectel for console uploader
-        UPLOADERFLAGS=[], # https://ss64.com/nt/start.html
-        UPLOADCMD='START /D ' + TOOL_DIR + '\\QFlash_V4.0 /W QFlash_V4.0.exe', 
+### PYTHON UPLOADER ###
+        UPLOADCMD = m66_uploader   
     ) # env.Append 
 
     libs = []
