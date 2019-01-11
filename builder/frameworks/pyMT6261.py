@@ -375,20 +375,12 @@ class MT6261:
         PB_END()        
 
 ######################################################################
-
-def m66_upload(file_name, com_port):  
+def upload_app(module, file_name, com_port):  
     m = MT6261( Serial( com_port, 115200 ) )
     m.connect()  
     m.da_start()
-    m.uploadApplication("m66", file_name)
-    #m.da_reset()
-    
-def mc60_upload(file_name, com_port):  
-    m = MT6261( Serial( com_port, 115200 ) )
-    m.connect()  
-    m.da_start()
-    m.uploadApplication("mc60", file_name)
-    #m.da_reset()    
+    m.uploadApplication(module, file_name)
+    #m.da_reset() 
     
     
 
