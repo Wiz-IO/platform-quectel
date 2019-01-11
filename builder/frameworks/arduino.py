@@ -43,6 +43,6 @@ else:
 ####################################################
 upload = env.Alias("upload", '$TARGET', [
     env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
-    env.VerboseAction("$UPLOADCMD", '\033[93m'+"RESET BOARD TO START FLASHING")
+    env.VerboseAction("$UPLOADCMD", '\033[93m'+"RESET BOARD $BOARD TO START FLASHING")
 ])
 AlwaysBuild( upload )    
