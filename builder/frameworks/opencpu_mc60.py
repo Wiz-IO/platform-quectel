@@ -5,10 +5,10 @@
 from os.path import join
 from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
 from bin_mc60 import makeHDR, makeCFG
-from pyMT6261 import m66_upload
+from pyMT6261 import upload_app
 
 def mc60_uploader(target, source, env):
-    return mc60_upload(join(env.get("BUILD_DIR"), "program.bin"), env.get("UPLOAD_PORT")) 
+    return upload_app("mc60", join(env.get("BUILD_DIR"), "program.bin"), env.get("UPLOAD_PORT")) 
 
 def mc60_header(target, source, env):
     makeHDR( source[0].path )
