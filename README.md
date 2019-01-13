@@ -15,9 +15,15 @@ Video  https://youtu.be/YvHy1MLqH70
 
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/boards.png) 
 
+**Install Platform**
+
+PIO Home > Platforms > Advanced Installation 
+
+paste https://github.com/Wiz-IO/platform-quectel.git
+
 **How to: [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)**
 
-**Thanks to**
+## Thanks to
 
 * Ivan Kravets ( PlatformIO )
 * Radu Igret ( Quectel )
