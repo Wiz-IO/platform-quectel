@@ -88,9 +88,8 @@ def bc66_init(env):
                 ]), "Building $TARGET"),
                 suffix=".dat"
             ),    
-
             MakeHeader = Builder( # Add BIN Header
-                action = bc66_header, 
+                action = env.VerboseAction(bc66_header, "Adding GFH header"),
                 suffix = ".bin"
             )        
         ), # dict
