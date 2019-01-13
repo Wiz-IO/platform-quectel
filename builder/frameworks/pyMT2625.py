@@ -73,7 +73,7 @@ def PB_END():
 
 def DBG(message):
     if DEBUG: 
-        print message
+        print(message)
     else: 
         PB_STEP()    
 
