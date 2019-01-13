@@ -34,14 +34,17 @@ print(Fore.GREEN + '<<<<<<<<<<<< '+env.BoardConfig().get("name").upper()+" 2018 
 #print env.Dump()
 
 ####################################################
-# Target: Build executable and linkable program
+# Build executable and linkable program
 ####################################################
-elf = None
 elf = env.BuildProgram()
+src = env.MakeHeader( join("$BUILD_DIR", "${PROGNAME}"), env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), elf) )
+AlwaysBuild( src )
 
-src = env.MakeHeader(
-    join("$BUILD_DIR", "${PROGNAME}"),
-    env.ElfToBin( join("$BUILD_DIR", "${PROGNAME}"), elf )  
-)
-AlwaysBuild( env.Alias("nobuild", src) )
-Default( src )
+upload = env.Alias("upload", src, [ 
+    env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
+    env.VerboseAction("$UPLOADCMD", '\033[93m'+"RESET BOARD $BOARD TO START FLASHING"),
+    env.VerboseAction("", '\033[93m'+"POWER ON BOARD"),
+])
+AlwaysBuild( upload )    
+
+Default( [src] )
