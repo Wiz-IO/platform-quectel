@@ -43,12 +43,3 @@ else:
     sys.stderr.write("Error: Unsupported module %s\n" % CORE.upper())
     env.Exit(1)
 
-####################################################
-# Target: Upload application
-####################################################
-upload = env.Alias("upload", '$TARGET', [
-    env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
-    env.VerboseAction("$UPLOADCMD", '\033[93m'+"RESET BOARD $BOARD TO START FLASHING"),
-    env.VerboseAction("", '\033[93m'+"POWER ON BOARD"),
-])
-AlwaysBuild( upload )
