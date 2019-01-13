@@ -16,7 +16,7 @@
       }
     }
   },  
-  "frameworks": [ "opencpu" ],
+  "frameworks": ["opencpu"],
   "vendor": "Quectel",
   "upload": {
         "maximum_ram_size": 100000,
