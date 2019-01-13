@@ -17,7 +17,7 @@
       }
     }
   },  
-  "frameworks": [ "opencpu", "arduino" ],
+  "frameworks": ["opencpu", "arduino"],
   "vendor": "Quectel",
   "upload": {
         "maximum_ram_size": 100000,
