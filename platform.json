@@ -44,7 +44,8 @@
     },
     "tool-quectel": {
         "type": "uploader",
-        "version": "https://github.com/Wiz-IO/tool-quectel.git"
+        "version": "https://github.com/Wiz-IO/tool-quectel.git",
+        "optional": true
     }
   }
 }
