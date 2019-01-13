@@ -67,12 +67,12 @@ def mc60_init(env):
                 ]), "Building $TARGET"),
                 suffix=".dat"
             ),     
-            MakeHeader=Builder( # Add Mediatek Header
-                action = mc60_header, 
+            MakeHeader = Builder( # Add BIN Header
+                action = env.VerboseAction(mc60_header, "Adding GFH header"),
                 suffix = ".bin"
-            )        
+            )       
         ), #dict
-### PYTHON UPLOADER ###
+
         UPLOADCMD = mc60_uploader   
     ) # env.Append 
 
