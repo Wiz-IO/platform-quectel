@@ -6,10 +6,10 @@ import os
 from os.path import join
 from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
 from bin_bc66 import makeHDR, makeCFG
-from pyMT2625 import bc66_upload
+from pyMT2625 import upload_app
 
 def bc66_uploader(target, source, env):
-    return bc66_upload(join(env.get("BUILD_DIR"), "program.bin"), env.get("UPLOAD_PORT")) 
+    return upload_app('bc66', join(env.get("BUILD_DIR"), "program.bin"), env.get("UPLOAD_PORT")) 
 
 def bc66_header(target, source, env):
     makeHDR( source[0].path )
@@ -84,18 +84,9 @@ def bc66_init(env):
                 suffix = ".bin"
             )        
         ), # dict
-
-### WINDOWS UPLOADER ###
-        #UPLOADER = join(TOOL_DIR, CORE, "$PLATFORM", "coda"), 
-        #UPLOADERFLAGS = [ '"$BUILD_DIR/${PROGNAME}.cfg"', "--UART", "$UPLOAD_PORT", "-d" ],
-        #UPLOADCMD = '"$UPLOADER" $UPLOADERFLAGS',
-
-### PYTHON UPLOADER ###
-        UPLOADER = '"$PYTHONEXE"',   
-        UPLOADERFLAGS = [ '"' + join(DIR, "frameworks", "bc66_uploader.py") + '"', '"$BUILD_DIR/${PROGNAME}.bin"', "$UPLOAD_PORT" ],
-        #UPLOADCMD = '"$UPLOADER" $UPLOADERFLAGS'
+        
         UPLOADCMD = bc66_uploader 
-
+        
     ) # env.Append    
 
     libs = []
