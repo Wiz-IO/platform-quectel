@@ -5,7 +5,6 @@
     "core": "bc66",
     "f_cpu": "78000000L",
     "mcu": "ARM, MT2625",
-    "cpu": "cortex-m4",
     "variant": "bc66"
   },
   "debug": {
@@ -14,15 +13,11 @@
         "onboard": true,
         "extra_cmds": [],
         "load_cmd": [],
-        "server": {
-          "arguments": [],
-          "executable": "coda",
-          "package": "tool-opencpu"
-        }
+        "server": {}
       }
     }
   },  
-  "frameworks": [ "opencpu" ],
+  "frameworks": [ "opencpu", "arduino" ],
   "vendor": "Quectel",
   "upload": {
         "maximum_ram_size": 100000,
