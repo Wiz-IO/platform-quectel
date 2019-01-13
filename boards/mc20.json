@@ -5,7 +5,6 @@
     "core": "mc60",
     "f_cpu": "260000000L",
     "mcu": "ARM, MT2503",
-    "cpu": "arm5",
     "variant": "mc60"
   },
   "debug": {
@@ -14,17 +13,11 @@
         "onboard": true,
         "extra_cmds": [],
         "load_cmd": [],
-        "server": {
-          "arguments": [],
-          "executable": "exe",
-          "package": "tool-opencpu"
-        }
+        "server": {}
       }
     }
   },  
-  "frameworks": [
-    "opencpu", "arduino"
-  ],
+  "frameworks": ["opencpu"],
   "vendor": "Quectel",
   "upload": {
         "maximum_ram_size": 102400,
