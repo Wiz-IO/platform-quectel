@@ -71,6 +71,12 @@ def PB_END():
         print("> DONE")
         sys.stdout.flush()
 
+def DBG(message):
+    if DEBUG: 
+        print message
+    else: 
+        PB_STEP()    
+
 def hexs(s):
     return hexlify(s).decode("ascii").upper()
 
@@ -110,8 +116,17 @@ class MT2625:
             "2":{"offset":0x84FAA, "size":0x0BCA4, "address":0x04001000},
             "3":{"offset":0x90C4E, "size":48}            
         },
-        "0x8300v1": {         
+        #MT2625.bin
+        "0x8100.0": {
+            "1":{"offset":0x00000, "size":0X00CB5, "address":0x04015000},
+            "2":{"offset":0x00CB5, "size":0X0BCA4, "address":0x04001000},
+            "3":{"offset":0x0C959, "size":48}
         },
+        "0x8300.0": {
+            "1":{"offset":0x0D019, "size":0X00CB5, "address":0x04015000},
+            "2":{"offset":0x0DCCE, "size":0X0BCA4, "address":0x04001000},
+            "3":{"offset":0x19972, "size":48}
+        }     
     }
 
     def __init__(self, ser):
