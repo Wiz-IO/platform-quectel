@@ -47,4 +47,4 @@ upload = env.Alias("upload", src, [
 ])
 AlwaysBuild( upload )    
 
-Default( [src] )
+Default( src )
