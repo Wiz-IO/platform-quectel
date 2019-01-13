@@ -15,7 +15,7 @@ Video  https://youtu.be/YvHy1MLqH70
 
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/boards.png) 
 
-**Install Platform**
+## Install Platform
 
 PIO Home > Platforms > Advanced Installation 
 
