@@ -78,15 +78,13 @@ def bc66_init(env):
                 ]), "Building $TARGET"),
                 suffix=".dat"
             ),    
-
-            MakeHeader = Builder( # Add Mediatek Header
-                action = bc66_header, 
+            MakeHeader = Builder( # Add BIN Header
+                action = env.VerboseAction(bc66_header, "Adding GFH header"),
                 suffix = ".bin"
-            )        
+            )       
         ), # dict
         
-        UPLOADCMD = bc66_uploader 
-        
+        UPLOADCMD = bc66_uploader         
     ) # env.Append    
 
     libs = []
