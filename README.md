@@ -36,7 +36,7 @@ paste https://github.com/Wiz-IO/platform-quectel.git
 * https://community.platformio.org
 * https://www.quectel.com/support/contact.htm
 * https://www.comet.bg/?cid=92
-*
+* 
 
 >If you want to help / support:   
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESUP9LCZMZTD6)
