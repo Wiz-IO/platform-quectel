@@ -29,6 +29,7 @@ paste https://github.com/Wiz-IO/platform-quectel.git
 
 * Ivan Kravets ( PlatformIO )
 * Radu Igret ( Quectel )
+*
 
 **Support links**
 
