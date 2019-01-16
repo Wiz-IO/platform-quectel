@@ -30,13 +30,11 @@ env.Replace(
 ####################################################
 # Select Module
 ####################################################
-print CORE
 if "EC2X" in CORE.upper(): 
     from openlinux_ec2x import ec2x_init
     ec2x_init(env)   
 else:
     sys.stderr.write("Error: Unsupported module %s\n" % CORE.upper())
     env.Exit(1)
-
 
 #print env.Dump()
