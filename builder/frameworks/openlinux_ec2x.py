@@ -3,13 +3,18 @@
 # https://github.com/Wiz-IO
 
 # MDM9607
+# EC25EFAR06A01M4G_OCPU_BETA1229
 
 import os
 from os.path import join
 from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
+from adb import upload_app
 
-def ec2x_uploader(target, source, env):
-    pass 
+def ec2x_uploader(target, source, env):  
+    TOOL_DIR = env.PioPlatform().get_package_dir("tool-quectel") 
+    adb = join(TOOL_DIR, "ec2x", "windows")
+    return upload_app('ec2x', env.get("BUILD_DIR"), adb)
+
 
 def ec2x_header(target, source, env):
     pass
@@ -32,7 +37,6 @@ def ec2x_init(env):
             "-mfloat-abi=softfp",
             "-mfpu=neon",
         ],
-
         LINKFLAGS=[        
             "-march=armv7-a",
             "-mtune=cortex-a7",
@@ -41,7 +45,7 @@ def ec2x_init(env):
         ],   
         #LIBPATH=[CORE_DIR],
         #LDSCRIPT_PATH=join(CORE_DIR, "linkscript.ld"), 
-        LIBS=["pthread"], 
+        LIBS=["m", "pthread"], 
 
         BUILDERS = dict(
             ElfToBin = Builder(
@@ -75,3 +79,4 @@ def ec2x_init(env):
             join(CORE_DIR, "interface")
     ))
     env.Append( LIBS = libs )
+    print "TOOL:", TOOL_DIR
