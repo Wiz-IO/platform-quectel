@@ -1,0 +1,26 @@
+{
+  "name": "Quectel EC25 EVB",
+  "url": "https://www.quectel.com/product/ec25.htm",
+  "build": {
+    "core": "ec2x",
+    "f_cpu": "1200000000L",
+    "mcu": "ARM, MDM9607",
+    "variant": "ec25-evb"
+  },
+  "debug": {
+    "tools": {
+      "uart": {
+        "onboard": true,
+        "extra_cmds": [],
+        "load_cmd": [],
+        "server": {}
+      }
+    }
+  },  
+  "frameworks": ["openlinux", "arduino"],
+  "vendor": "Quectel",
+  "upload": {
+        "maximum_ram_size": 10485761,
+        "maximum_size": 10485761
+  }
+}
