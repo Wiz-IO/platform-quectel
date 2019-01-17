@@ -18,13 +18,12 @@ def ec2x_uploader(target, source, env):
 def ec2x_init(env):
     DIR = os.path.dirname(env.get("BUILD_SCRIPT"))
     CORE = env.BoardConfig().get("build.core") # "ec2x"
-    CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "openlinux")    
+    CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "openlinux", CORE)    
     env.Replace(PROGNAME="openlinux", PROGSUFFIX='')
     env.Append(
         CPPDEFINES=[ "CORE_" + CORE.upper() ], # -D
         CPPPATH=[ # -I
-            CORE_DIR,
-            join(CORE_DIR, "include"),   
+            CORE_DIR,  
             join(CORE_DIR, "interface"), 
         ],
         CFLAGS=[
