@@ -11,7 +11,7 @@ from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
 from adb import upload_app
 
 def ec2x_uploader(target, source, env):  
-    adb = join(env.PioPlatform().get_package_dir("tool-quectel") , "ec2x", "windows")
+    adb = join(env.PioPlatform().get_package_dir("tool-quectel"), "windows", "ec2x")
     app = env.get("BUILD_DIR"), env.get("PROGNAME"), env.get("PROGSUFFIX")
     return upload_app('ec2x', app, adb)
 
