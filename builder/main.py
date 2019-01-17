@@ -31,8 +31,6 @@ from colorama import Fore
 env = DefaultEnvironment()
 print(Fore.GREEN + '<<<<<<<<<<<< '+env.BoardConfig().get("name").upper()+" 2018 Georgi Angelov >>>>>>>>>>>>")
 
-#print env.Dump()
-
 ####################################################
 # Build executable and linkable program
 ####################################################
@@ -42,8 +40,8 @@ AlwaysBuild( src )
 
 upload = env.Alias("upload", src, [ 
     env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
-    env.VerboseAction("$UPLOADCMD", '\033[93m'+"RESET BOARD $BOARD TO START FLASHING"),
-    env.VerboseAction("", '\033[93m'+"POWER ON BOARD"),
+    env.VerboseAction("$UPLOADCMD", '\033[93m'+"Uploading: $PROGNAME"),
+    env.VerboseAction("", '\033[93m'+"Ready"),
 ])
 AlwaysBuild( upload )    
 
