@@ -18,14 +18,16 @@ def ec2x_uploader(target, source, env):
 def ec2x_init(env):
     DIR = os.path.dirname(env.get("BUILD_SCRIPT"))
     CORE = env.BoardConfig().get("build.core") # "ec2x"
-    CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "openlinux", CORE)    
+    CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "openlinux", CORE)   
+    MDM_DIR = env.BoardConfig().get("build.mdm", "")
+    if MDM_DIR != "": MDM_DIR = join(MDM_DIR, "usr")      
     env.Replace(PROGNAME="openlinux", PROGSUFFIX='')
     env.Append(
         CPPDEFINES=[ "CORE_" + CORE.upper() ], # -D
         CPPPATH=[ # -I
             CORE_DIR,  
             join(CORE_DIR, "interface"),
-            join(CORE_DIR, "mdm9607", "include"),
+            join(MDM_DIR, "include"),
         ],
         CFLAGS=[
             "-march=armv7-a",
@@ -43,7 +45,7 @@ def ec2x_init(env):
         ],   
         LIBPATH=[
             join(CORE_DIR, "interface"),
-            join(CORE_DIR, "mdm9607", "lib")
+            join(MDM_DIR, "lib")
         ],
         LIBS=["m", "pthread"], 
 
