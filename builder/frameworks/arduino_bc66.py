@@ -15,7 +15,29 @@ def bc66_header(target, source, env):
     makeHDR( source[0].path )
     makeCFG( source[0].path )
 
+def bc66_compiler(env):
+    env.Replace(
+        BUILD_DIR = env.subst("$BUILD_DIR").replace("\\", "/"),
+        AR="arm-none-eabi-ar",
+        AS="arm-none-eabi-as",
+        CC="arm-none-eabi-gcc",
+        GDB="arm-none-eabi-gdb",
+        CXX="arm-none-eabi-g++",
+        OBJCOPY="arm-none-eabi-objcopy",
+        RANLIB="arm-none-eabi-ranlib",
+        SIZETOOL="arm-none-eabi-size",
+        STRIP="arm-none-eabi-strip",
+        ARFLAGS=["rc"],
+        SIZEPROGREGEXP=r"^(?:\.text|\.data|\.bootloader)\s+(\d+).*",
+        SIZEDATAREGEXP=r"^(?:\.data|\.bss|\.noinit)\s+(\d+).*",
+        SIZECHECKCMD="$SIZETOOL -A -d $SOURCES",
+        SIZEPRINTCMD='$SIZETOOL --mcu=$BOARD_MCU -C -d $SOURCES',
+        PROGSUFFIX=".elf",  
+        UPLOADNAME=join("$BUILD_DIR", "${PROGNAME}.cfg"),
+    )       
+    
 def bc66_init(env):
+    bc66_compiler()
     VARIANT = env.BoardConfig().get("build.variant")
     CORE = env.BoardConfig().get("build.core") # bc66
     FW = env.BoardConfig().get("build.fw", "") # BC66NBR01A04V01
