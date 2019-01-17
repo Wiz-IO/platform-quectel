@@ -24,7 +24,8 @@ def ec2x_init(env):
         CPPDEFINES=[ "CORE_" + CORE.upper() ], # -D
         CPPPATH=[ # -I
             CORE_DIR,  
-            join(CORE_DIR, "interface"), 
+            join(CORE_DIR, "interface"),
+            join(CORE_DIR, "mdm9607", "include"),
         ],
         CFLAGS=[
             "-march=armv7-a",
@@ -40,8 +41,10 @@ def ec2x_init(env):
             "-mfloat-abi=softfp",
             "-mfpu=neon",  
         ],   
-        #LIBPATH=[CORE_DIR],
-        #LDSCRIPT_PATH=join(CORE_DIR, "linkscript.ld"), 
+        LIBPATH=[
+            join(CORE_DIR, "interface"),
+            join(CORE_DIR, "mdm9607", "lib")
+        ],
         LIBS=["m", "pthread"], 
 
         BUILDERS = dict(
