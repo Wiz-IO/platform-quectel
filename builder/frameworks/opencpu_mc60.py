@@ -20,7 +20,7 @@ def mc60_init(env):
     CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "opencpu", CORE)    
 
     env.Append(
-        CPPDEFINES=[ "CORE_"+CORE.upper() ], # -D
+        CPPDEFINES=["OPENCPU", "CORE_"+CORE.upper()], # -D
         CPPPATH=[ # -I
             CORE_DIR,
             join(CORE_DIR, "include"),
