@@ -37,7 +37,7 @@ def bc66_compiler(env):
     )       
     
 def bc66_init(env):
-    bc66_compiler()
+    bc66_compiler(env)
     VARIANT = env.BoardConfig().get("build.variant")
     CORE = env.BoardConfig().get("build.core") # bc66
     FW = env.BoardConfig().get("build.fw", "") # BC66NBR01A04V01
