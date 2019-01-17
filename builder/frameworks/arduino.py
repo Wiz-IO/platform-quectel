@@ -8,32 +8,15 @@ from SCons.Script import (AlwaysBuild, Builder, COMMAND_LINE_TARGETS, Default, D
 
 env = DefaultEnvironment()
 
-env.Replace(
-    BUILD_DIR = env.subst("$BUILD_DIR").replace("\\", "/"),
-    AR="arm-none-eabi-ar",
-    AS="arm-none-eabi-as",
-    CC="arm-none-eabi-gcc",
-    GDB="arm-none-eabi-gdb",
-    CXX="arm-none-eabi-g++",
-    OBJCOPY="arm-none-eabi-objcopy",
-    RANLIB="arm-none-eabi-ranlib",
-    SIZETOOL="arm-none-eabi-size",
-    STRIP="arm-none-eabi-strip",
-    ARFLAGS=["rc"],
-    SIZEPROGREGEXP=r"^(?:\.text|\.data|\.bootloader)\s+(\d+).*",
-    SIZEDATAREGEXP=r"^(?:\.data|\.bss|\.noinit)\s+(\d+).*",
-    SIZECHECKCMD="$SIZETOOL -A -d $SOURCES",
-    SIZEPRINTCMD='$SIZETOOL --mcu=$BOARD_MCU -C -d $SOURCES',
-    PROGSUFFIX=".elf",  
-    UPLOADNAME=join("$BUILD_DIR", "${PROGNAME}.cfg"),
-)
-
 ####################################################
 # Select Module
 ####################################################
 if "BC66" in env.BoardConfig().get("build.core").upper(): 
     from arduino_bc66 import bc66_init
     bc66_init(env)
+elif "EC2X" in env.BoardConfig().get("build.core").upper(): 
+    from arduino_ec2x import ec2x_init
+    ec2x_init(env)   
 else:
     sys.stderr.write("Error: Unsupported module\n")
     env.Exit(1)    
