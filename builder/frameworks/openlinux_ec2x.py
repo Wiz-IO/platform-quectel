@@ -23,7 +23,7 @@ def ec2x_init(env):
     if MDM_DIR != "": MDM_DIR = join(MDM_DIR, "usr")      
     env.Replace(PROGNAME="openlinux", PROGSUFFIX='')
     env.Append(
-        CPPDEFINES=[ "CORE_" + CORE.upper() ], # -D
+        CPPDEFINES=["OPENLINUX", "CORE_" + CORE.upper()], # -D
         CPPPATH=[ # -I
             CORE_DIR,  
             join(CORE_DIR, "interface"),
