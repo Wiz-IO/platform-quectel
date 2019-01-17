@@ -62,7 +62,7 @@ def bc66_init(env):
 
     env.Append(
         ASFLAGS = ["-x", "assembler-with-cpp"],
-        CPPDEFINES = [ "CORE_"+CORE.upper() ], # -D
+        CPPDEFINES = ["ARDUINO", "CORE_"+CORE.upper()], # -D
         CPPPATH = [ # -I
             CORE_DIR,
             join(CORE_DIR, "interface"),
