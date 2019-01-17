@@ -21,7 +21,7 @@ def bc66_init(env):
     CORE = env.BoardConfig().get("build.core") # "bc66"
     CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "opencpu", CORE)
     env.Append(
-        CPPDEFINES=[ "CORE_"+CORE.upper(),  "_REENT_SMALL" ], # -D
+        CPPDEFINES=["OPENCPU", "CORE_"+CORE.upper(),  "_REENT_SMALL"], # -D
         CPPPATH=[ # -I
             CORE_DIR,
             join(CORE_DIR, "include"),
