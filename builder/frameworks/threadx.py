@@ -34,7 +34,7 @@ if "BG96" in CORE.upper():
     from threadx_bg96 import bg96_init
     bg96_init(env)   
 else:
-    sys.stderr.write("Error: Unsupported module %s\n" % CORE.upper())
-    env.Exit(1)
+    print("\n\033[31mERROR: Unsupported module %s\n" % CORE.upper() )
+    exit(2)
 
 #print env.Dump()
