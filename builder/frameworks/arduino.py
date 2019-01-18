@@ -17,6 +17,9 @@ if "BC66" in env.BoardConfig().get("build.core").upper():
 elif "EC2X" in env.BoardConfig().get("build.core").upper(): 
     from arduino_ec2x import ec2x_init
     ec2x_init(env)   
+elif "BG96" in env.BoardConfig().get("build.core").upper(): 
+    from arduino_bg96 import bg96_init
+    bg96_init(env)     
 else:
     sys.stderr.write("Error: Unsupported module\n")
     env.Exit(1)    
