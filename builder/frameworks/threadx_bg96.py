@@ -10,9 +10,9 @@ def bg96_uploader(target, source, env):
     print "EXTERNAL APPLICATION"
 
 def bg96_init(env):
+    print("\n\033[31mFramework is in development..." )
     CORE = env.BoardConfig().get("build.core") # "bg96"
     CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "threadx", CORE)    
-
     env.Append(
         CPPDEFINES=["THREADX", "CORE_"+CORE.upper(), # -D 
             "TXM_MODULE",
@@ -60,7 +60,6 @@ def bg96_init(env):
         LIBPATH=[CORE_DIR],
         LDSCRIPT_PATH=join(CORE_DIR, "interface","linkscript.ld"),    
         LIBS=["gcc", "m"],
-
         BUILDERS=dict(
             ElfToBin=Builder(
                 action=env.VerboseAction(" ".join([
@@ -74,15 +73,17 @@ def bg96_init(env):
             ),     
             MakeHeader = Builder(action="", suffix=".2")       
         ), #dict
-
         UPLOADCMD = bg96_uploader   
     ) # env.Append 
-
     libs = []
     libs.append(
         env.BuildLibrary(
             join("$BUILD_DIR", "framework"),
-            join( CORE_DIR )
+            join(CORE_DIR)
     ))
-
+    libs.append(
+        env.BuildLibrary(
+            join("$BUILD_DIR", "framework", "interface"),
+            join(CORE_DIR, "interface")
+    ))
     env.Append( LIBS=libs )    
