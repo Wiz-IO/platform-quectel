@@ -1,6 +1,7 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
+* **I will restructure the platform soon**
 * Version: 1.0.0 
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
 * Frameworks: now OpenCPU ( M66, MC60, BC66 ), Arduino ( BC66 ) ... next OpenLinux, ThreadX
