@@ -9,11 +9,16 @@
 * Windows, Linux, macOS
 * Added Python uploaders
 
+
 **it should look like this...**
 
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/platform.png) 
 
-Video  https://youtu.be/YvHy1MLqH70
+Video
+
+https://youtu.be/YvHy1MLqH70
+
+https://www.youtube.com/watch?v=DJ0nZS5HwHU
 
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/boards.png) 
 
