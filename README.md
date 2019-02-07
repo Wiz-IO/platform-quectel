@@ -22,6 +22,8 @@ https://www.youtube.com/watch?v=DJ0nZS5HwHU
 
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/boards.png) 
 
+![Project](https://raw.githubusercontent.com/Wiz-IO/LIB/master/images/bc66-oled.png) 
+
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/on_linux.png) 
 
 ## Install Platform
