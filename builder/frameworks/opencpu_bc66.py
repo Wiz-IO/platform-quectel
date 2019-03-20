@@ -56,7 +56,7 @@ def bc66_init(env):
             "-mthumb",
             "-mthumb-interwork",   
             "-nostartfiles",     
-            "-Rbuild",        
+            #"-Rbuild",        
             "-Wl,--gc-sections,--relax",
             "-Wl,-wrap=malloc",
             "-Wl,-wrap=calloc",
