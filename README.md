@@ -6,8 +6,7 @@
 * Version: 1.0.0 and Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
 * Frameworks: now OpenCPU ( M66, MC60, BC66 ), Arduino ( BC66 ) ... next OpenLinux, ThreadX
 * Modules: now M66, M26, MC60, MC20 BC66, BC26 ... next BG96, BG36, EC20, EC21, EC25 ...
-* Windows, Linux, macOS
-* Added Python uploaders
+* Windows(preferably),    Linux, macOS (I not have hardware machines for tests, compiler must work)
 
 
 **it should look like this...**
