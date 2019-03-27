@@ -21,7 +21,8 @@ def bc66_init(env):
     CORE = env.BoardConfig().get("build.core") # "bc66"
     CORE_DIR = join(env.PioPlatform().get_package_dir("framework-quectel"), "opencpu", CORE)
     env.Append(
-        CPPDEFINES=["OPENCPU", "CORE_"+CORE.upper(),  "_REENT_SMALL"], # -D
+ 
+        CPPDEFINES=[ "CORE_BC66", "OPENCPU"], # -D
         CPPPATH=[ # -I
             CORE_DIR,
             join(CORE_DIR, "include"),
@@ -29,43 +30,37 @@ def bc66_init(env):
             join(CORE_DIR, "fota", "inc"),        
         ],
         CFLAGS=[
+            "-Os", "-g", "-c",        
             "-mcpu=cortex-m4",
             "-mfloat-abi=hard",
-            "-mfpu=fpv4-sp-d16",
-            "-fsingle-precision-constant",        
-            "-mthumb",
-            "-mthumb-interwork", 
-            "-mlong-calls",       
-            "-std=c99",
-            "-c", "-g", "-Os",
-            "-fno-builtin",         
+            "-mfpu=fpv4-sp-d16", 
+            "-mlittle-endian",      
+            "-mthumb", 
+            "-std=c11",                 
+            "-fdata-sections",      
             "-ffunction-sections",
-            "-fdata-sections",
             "-fno-strict-aliasing",
-            "-fno-common", 
-            "-Wall",
-            "-Wp,-w",               
-            "-Wstrict-prototypes",                  
-            "-Wno-implicit-function-declaration",
+            "-fsingle-precision-constant",             
+            "-Wall", 
+            "-Wextra",           
+            "-Wno-unused",
+            "-Wno-unused-parameter",              
+            "-Wno-sign-compare",  
+            "-Wno-pointer-sign",
         ],
-
         LINKFLAGS=[        
             "-mcpu=cortex-m4",
             "-mfloat-abi=hard",
-            "-mfpu=fpv4-sp-d16",
-            "-mthumb",
-            "-mthumb-interwork",   
-            "-nostartfiles",     
-            #"-Rbuild",        
-            "-Wl,--gc-sections,--relax",
-            "-Wl,-wrap=malloc",
-            "-Wl,-wrap=calloc",
-            "-Wl,-wrap=realloc",
-            "-Wl,-wrap=free"   
+            "-mfpu=fpv4-sp-d16", 
+            "-mlittle-endian",      
+            "-mthumb",                                             
+            "-nostartfiles",        
+            "-Xlinker", "--gc-sections",              
+            "-Wl,--gc-sections",  
         ],   
         LIBPATH=[CORE_DIR],
         LDSCRIPT_PATH=join(CORE_DIR, "linkscript.ld"), 
-        LIBS=[ "gcc", "m", "app_start" ], 
+        LIBS=[ "gcc", "m", "app_start" ],    
 
         BUILDERS = dict(
             ElfToBin = Builder(
