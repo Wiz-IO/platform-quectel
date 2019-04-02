@@ -34,6 +34,7 @@ PIO Home > Platforms > Advanced Installation
 paste https://github.com/Wiz-IO/platform-quectel.git
 
 **How to: [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)**
+ and [EXAMPLES](https://github.com/Wiz-IO/platformio-quectel-examples)
 
 ## Thanks to
 
