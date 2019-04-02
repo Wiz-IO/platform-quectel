@@ -39,7 +39,7 @@ paste https://github.com/Wiz-IO/platform-quectel.git
 
 * Ivan Kravets ( PlatformIO )
 * Radu Igret ( Quectel )
-*
+* [comet.bg](https://www.comet.bg/?cid=92)
 
 **Support links**
 
