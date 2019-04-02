@@ -17,7 +17,7 @@
       }
     }
   },  
-  "frameworks": ["threadx"],
+  "frameworks": ["threadx", "arduino"],
   "vendor": "Quectel",
   "upload": {
         "maximum_ram_size": 3145729,

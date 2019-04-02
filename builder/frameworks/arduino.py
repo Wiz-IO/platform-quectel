@@ -3,24 +3,13 @@
 # http://www.wizio.eu/
 # https://github.com/Wiz-IO
 
-from os.path import join
-from SCons.Script import (AlwaysBuild, Builder, COMMAND_LINE_TARGETS, Default, DefaultEnvironment)
+from SCons.Script import DefaultEnvironment
 
 env = DefaultEnvironment()
-
-####################################################
-# Select Module
-####################################################
-if "BC66" in env.BoardConfig().get("build.core").upper(): 
-    from arduino_bc66 import bc66_init
-    bc66_init(env)
-elif "EC2X" in env.BoardConfig().get("build.core").upper(): 
-    from arduino_ec2x import ec2x_init
-    ec2x_init(env)   
-elif "BG96" in env.BoardConfig().get("build.core").upper(): 
-    from arduino_bg96 import bg96_init
-    bg96_init(env)     
-else:
-    sys.stderr.write("Error: Unsupported module\n")
-    env.Exit(1)    
+platform = "arduino"
+module = platform + "-" + env.BoardConfig().get("build.core")
+m = __import__(module)       
+globals()[module] = m
+m.dev_init(env, platform)
+#print env.Dump()
 

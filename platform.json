@@ -31,7 +31,11 @@
       "arduino": {
         "package": "framework-quectel",
         "script": "builder/frameworks/arduino.py"
-      }
+      },
+      "wizio": {
+        "package": "framework-quectel",
+        "script": "builder/frameworks/wizio.py"
+      }      
   },
   "packages": {
     "framework-quectel": {
