@@ -3,7 +3,7 @@
 **A few words in the beginning**
 * **Version: 2.0.0**
 * [Old version 1.0.0](https://github.com/Wiz-IO/LIB/blob/master/platformio-quectel-100.zip)
-* This project not an official product of Quectel 
+* This project not an official product of Quectel and is based on **reverse engineering**
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
 * [Examples](https://github.com/Wiz-IO/platformio-quectel-examples) 
 * Frameworks: now OpenCPU ( M66, BC66 ), Arduino ( BC66, M66 ) 
