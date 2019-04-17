@@ -1,7 +1,7 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
-* **Version: 2.0.0**
+* **Version: 2.0.1**
 * [Old version 1.0.0](https://github.com/Wiz-IO/LIB/blob/master/platformio-quectel-100.zip)
 * This project not an official product of Quectel and is based on **reverse engineering**
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
