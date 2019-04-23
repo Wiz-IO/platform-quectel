@@ -4,7 +4,7 @@
 * **Version: 2.0.1**
 * * Add: OpenCPU for MC60
 * This project not an official product of Quectel and is based on **reverse engineering**
-* Frameworks: now OpenCPU ( M66, MC60, BC66 ), Arduino ( BC66, M66 ) comming soon BG96
+* Frameworks: now OpenCPU ( M66, MC60, BC66 ), Arduino ( BC66, M66 ) ... comming soon BG96
 * Windows(preferably), Linux, macOS (I not have hardware machines for tests, compiler must work)
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
 * [Examples](https://github.com/Wiz-IO/platformio-quectel-examples) 
