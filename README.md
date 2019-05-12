@@ -2,7 +2,7 @@
 
 **A few words in the beginning**
 * **Version: 2.0.1**
-* * Add: OpenCPU for MC60
+* * Add: OpenCPU for MC60 (attention: MC60 is different from MC60E)
 * This project not an official product of Quectel and is based on **reverse engineering**
 * Frameworks: now OpenCPU ( M66, MC60, BC66 ), Arduino ( BC66, M66 ) ... comming soon BG96
 * Windows(preferably), Linux, macOS (I not have hardware machines for tests, compiler must work)
