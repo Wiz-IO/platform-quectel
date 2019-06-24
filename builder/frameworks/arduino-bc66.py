@@ -10,7 +10,10 @@ from bc66 import makeHDR, makeCFG
 from MT2625 import upload_app
 
 def dev_uploader(target, source, env):
-    return upload_app(env.BoardConfig().get("build.core"), join(env.get("BUILD_DIR"), "program.bin"), env.get("UPLOAD_PORT")) 
+    return upload_app(env.BoardConfig().get("build.core"),
+                      join(env.get("BUILD_DIR"), "program.bin"),
+                      env.get("UPLOAD_PORT"),
+                      env.BoardConfig().get("vendor") == "Olimex")
 
 def dev_header(target, source, env):
     makeHDR( source[0].path )
