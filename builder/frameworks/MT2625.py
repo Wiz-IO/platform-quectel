@@ -255,6 +255,7 @@ class MT2625:
         self.s.write(ACK)
         self.s.read(2)
         self.s.write(ACK+ACK)  
+        time.sleep(0.1)
         # SET BAUDRATE
         self.s.baudrate = 921600 
         self.s.write(CONF)
