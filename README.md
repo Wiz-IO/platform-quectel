@@ -1,11 +1,12 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
-* **Version: 2.0.1**
+* **Version: 2.0.3**
+* * Add: [ThreadX and Arduino for BG96](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-ThreadX)
 * * Add: OpenCPU for MC60 (attention: MC60 is different from MC60E)
 * This project not an official product of Quectel and is based on **reverse engineering**
-* Frameworks: now OpenCPU ( M66, MC60, BC66 ), Arduino ( BC66, M66 ) ... comming soon BG96
-* Windows(preferably), Linux, macOS (I not have hardware machines for tests, compiler must work)
+* Frameworks: OpenCPU ( M66, MC60, BC66 ), ThreadX ( BG96 ), Arduino ( BC66, M66, BG96 )
+* **Windows(preferably)**, Linux, macOS (I not have hardware machines for tests, compiler must work)
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
 * [Examples](https://github.com/Wiz-IO/platformio-quectel-examples) 
 * [Old version 1.0.0](https://github.com/Wiz-IO/LIB/blob/master/platformio-quectel-100.zip)

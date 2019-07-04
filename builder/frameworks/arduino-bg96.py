@@ -6,37 +6,16 @@ import os
 from os.path import join
 from shutil import copyfile
 from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
-from bg96 import upload_app
 
-from subprocess import check_output, CalledProcessError, call
-import tempfile
-def _exec_command(adb_cmd):
-    t = tempfile.TemporaryFile()
-    final_adb_cmd = []
-    for e in adb_cmd:
-        if e != '':  # avoid items with empty string...
-            final_adb_cmd.append(e)  # ... so that final command doesn't
-            # contain extra spaces
-    #print('\n[RUN] ' + ' '.join(adb_cmd))
-    try:
-        output = check_output(final_adb_cmd, stderr=t)
-    except CalledProcessError as e:
-        t.seek(0)
-        result = e.returncode, t.read()
-    else:
-        result = 0, output
-        print('\n' + result[1])
-    return result 
-
-
+from colorama import Fore
 def dev_uploader(target, source, env):
-    return
-    uploader_dir = env.PioPlatform().get_package_dir("tool-quectel")
-    uploader = join(uploader_dir, "windows", "bg96", "QWinExplorer"),
-    print uploader
-    _exec_command(uploader)
-    return
-    #return upload_app(env.BoardConfig().get("build.core"), join(env.get("BUILD_DIR"), "program.bin"), env.get("UPLOAD_PORT")) 
+    print(Fore.BLUE +  'Use QEFS_Explore.exe - DM Comm port')
+    print(Fore.BLUE +  'Upload from Project folder ') + env.subst("$BUILD_DIR").replace("\\", "/")
+    print(Fore.GREEN + '    program.bin')
+    print(Fore.GREEN + '    oem_app_path.ini ( only once )')    
+    print(Fore.BLUE +  'To Module folder datatx/')
+    print(Fore.BLUE + 'Restart module')
+    return 
 
 def dev_header(target, source, env):
     d = source[0].path 
@@ -73,11 +52,12 @@ def dev_init(env, platform):
     framework_dir = env.PioPlatform().get_package_dir("framework-quectel")
     core = env.BoardConfig().get("build.core")    
     variant = env.BoardConfig().get("build.variant")  
-    env.firmware = env.BoardConfig().get("build.firmware", "SDK2").upper()  #SDK2 #SDK3
-    print "FIRMWARE", env.firmware
+    env.sdk = env.BoardConfig().get("build.sdk", "SDK2").upper()  #SDK2 #SDK2831 #SDK325 #SDK424 
     env.base = env.BoardConfig().get("build.base", "0x40000000")    
-    print "RO_BASE", env.base
     env.heap = env.BoardConfig().get("build.heap", "1048576") 
+
+    print "CORE", core, env.sdk, "RO_BASE =", env.base, "HEAP =", env.heap
+
     env.Append(
        CPPDEFINES = [ # -D                         
             "{}=200".format(platform.upper()), 
@@ -98,20 +78,20 @@ def dev_init(env, platform):
             join(framework_dir,  platform, platform),
             join(framework_dir,  platform, "cores", core),
             join(framework_dir,  platform, "variants", variant), 
-            join(framework_dir, "threadx", core, env.firmware),
-            join(framework_dir, "threadx", core, env.firmware, "qapi"),
-            join(framework_dir, "threadx", core, env.firmware, "threadx_api"),             
-            join(framework_dir, "threadx", core, env.firmware, "quectel", "include"), 
+            join(framework_dir, "threadx", core, env.sdk),
+            join(framework_dir, "threadx", core, env.sdk, "qapi"),
+            join(framework_dir, "threadx", core, env.sdk, "threadx_api"),             
+            join(framework_dir, "threadx", core, env.sdk, "quectel", "include"), 
             join(framework_dir, "threadx", core, "wizio"),         
             join("$PROJECT_DIR", "lib"),
             join("$PROJECT_DIR", "include")         
         ],        
         CFLAGS = [
-            "-std=c11",   
+            #"-std=c11",   
             "-Wno-pointer-sign",                                                                      
         ],  
         CXXFLAGS = [   
-            "-std=c++11",                             
+            #"-std=c++11",                             
             "-fno-rtti",
             "-fno-exceptions", 
             "-fno-non-call-exceptions",
@@ -188,7 +168,7 @@ def dev_init(env, platform):
     libs.append(
         env.BuildLibrary(
             join("$BUILD_DIR", "_threadx"),
-            join(framework_dir, "threadx", core, env.firmware),
+            join(framework_dir, "threadx", core, env.sdk),
     ))  
     libs.append(
         env.BuildLibrary(

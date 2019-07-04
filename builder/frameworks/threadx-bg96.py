@@ -6,11 +6,16 @@ import os
 from os.path import join
 from shutil import copyfile
 from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
-from bg96 import upload_app
 
+from colorama import Fore
 def dev_uploader(target, source, env):
+    print(Fore.BLUE +  'Use QEFS_Explore.exe - DM Comm port')
+    print(Fore.BLUE +  'Upload from Project folder ') + env.subst("$BUILD_DIR").replace("\\", "/")
+    print(Fore.GREEN + '    program.bin')
+    print(Fore.GREEN + '    oem_app_path.ini ( only once )')    
+    print(Fore.BLUE +  'To Module folder datatx/')
+    print(Fore.BLUE + 'Restart module')
     return
-    #return upload_app(env.BoardConfig().get("build.core"), join(env.get("BUILD_DIR"), "program.bin"), env.get("UPLOAD_PORT")) 
 
 def dev_header(target, source, env):
     d = source[0].path 
@@ -43,23 +48,23 @@ def dev_compiler(env):
         SIZEPRINTCMD='$SIZETOOL --mcu=$BOARD_MCU -C -d $SOURCES',
         PROGSUFFIX=".elf",  
     )
+    env.Append(UPLOAD_PORT='QEFS Explore') #upload_port = "must exist variable"
 
 def dev_init(env, platform):
     dev_create_template(env)
     dev_compiler(env)
     framework_dir = env.PioPlatform().get_package_dir("framework-quectel")
     core = env.BoardConfig().get("build.core") 
-    print "CORE", core    
-    variant = env.BoardConfig().get("build.variant")  
-    print "VARIANT", variant
-    env.firmware = env.BoardConfig().get("build.firmware", "SDK2").upper()  #SDK2 #SDK3
-    print "FIRMWARE", env.firmware
+    env.sdk = env.BoardConfig().get("build.sdk", "SDK2").upper()  #SDK2 #SDK2831 #SDK325 #SDK424 
     env.base = env.BoardConfig().get("build.base", "0x40000000")    
-    print "RO_BASE", env.base
     env.heap = env.BoardConfig().get("build.heap", "1048576") 
+
+    print "CORE", core, env.sdk, "RO_BASE =", env.base, "HEAP =", env.heap
+
     env.Append(
        CPPDEFINES = [ # -D                         
-            platform.upper(), "CORE_" + core.upper().replace("-", "_"), 
+            platform.upper(), 
+            "CORE_" + core.upper().replace("-", "_"), 
             "QAPI_TXM_MODULE", 
             "TXM_MODULE",  
             "TX_DAM_QC_CUSTOMIZATIONS",  
@@ -70,12 +75,12 @@ def dev_init(env, platform):
             "TX_ENABLE_IRQ_NESTING",   
             "TX3_CHANGES", 
             "_RO_BASE_=" + env.base,  
-            "HEAP_SIZE=32768"                      
+            "HEAP=" + env.heap                      
         ],        
         CPPPATH = [ # -I
-            join(framework_dir, platform, core, env.firmware),
-            join(framework_dir, platform, core, env.firmware, "qapi"),
-            join(framework_dir, platform, core, env.firmware, "threadx_api"),             
+            join(framework_dir, platform, core, env.sdk),
+            join(framework_dir, platform, core, env.sdk, "qapi"),
+            join(framework_dir, platform, core, env.sdk, "threadx_api"),             
             join(framework_dir, platform, core, "quectel"),        
             join("$PROJECT_DIR", "lib"),
             join("$PROJECT_DIR", "include")         
@@ -85,7 +90,7 @@ def dev_init(env, platform):
             "-marm",
             "-mcpu=cortex-a7",
             "-mfloat-abi=softfp",             
-            "-std=c11",                                                 
+            #"-std=c11",                                                 
             "-fdata-sections",      
             "-ffunction-sections",              
             "-fno-strict-aliasing",
@@ -135,7 +140,7 @@ def dev_init(env, platform):
     libs.append(
         env.BuildLibrary(
             join("$BUILD_DIR", platform),
-            join(framework_dir, platform, core, env.firmware),
+            join(framework_dir, platform, core, env.sdk),
     ))    
     libs.append(
         env.BuildLibrary(
