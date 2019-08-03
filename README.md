@@ -2,7 +2,7 @@
 
 **A few words in the beginning**
 * **Version: 2.0.3**
-* * Add: [ThreadX and Arduino for BG96](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-ThreadX)
+* * Add: [ThreadX and Arduino for BG96](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-ThreadX)( Qualcomm MDM9206 )
 * * Add: OpenCPU for MC60 (attention: MC60 is different from MC60E)
 * This project not an official product of Quectel and is based on **reverse engineering**
 * Frameworks: OpenCPU ( M66, MC60, BC66 ), ThreadX ( BG96 ), Arduino ( BC66, M66, BG96 )
