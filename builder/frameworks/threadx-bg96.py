@@ -115,7 +115,8 @@ def dev_init(env, platform):
             "-fmessage-length=0",
             "-ffunction-sections",
             "-fdata-sections",                               
-        ],       
+        ],
+        LIBSOURCE_DIRS=[join(framework_dir, platform, "libraries", core),],
         LDSCRIPT_PATH = join(framework_dir, platform, core, "c.ld"), 
         LIBS = [ "gcc", "m" ],               
         BUILDERS = dict(
