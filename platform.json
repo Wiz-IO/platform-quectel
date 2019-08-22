@@ -35,12 +35,12 @@
       "wizio": {
         "package": "framework-quectel",
         "script": "builder/frameworks/wizio.py"
-      }      
+      }
   },
   "packages": {
     "framework-quectel": {
         "type": "framework",
-        "version": "https://github.com/Wiz-IO/framework-quectel.git"
+        "version": "https://github.com/StefanMavrodiev/framework-quectel.git#olimex"
     },
     "toolchain-gccarmnoneeabi": {
         "type": "toolchain",
