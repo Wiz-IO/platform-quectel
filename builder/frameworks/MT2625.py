@@ -81,7 +81,7 @@ def ASSERT(flag, message):
 
 def PB_BEGIN(text):
     if DEBUG == False:
-        print('\033[94m' + text, end='')
+        print(text, end='')
 
 def PB_STEP():
     if DEBUG == False: 
