@@ -1,7 +1,7 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
-* [**Forum Quectel - everything about Quectel modules**](https://forums.quectel.com/)
+* **The platform work with Python 2, Before install PlatformIO remove Python 3 and form system PATH**
 * **Version: 2.0.4**
 * * NEW: BC66 OpenCPU SDK 1.4
 * * NEW: BC66 Arduino for [BC66NBR01A07](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-Arduino#ini-for-bc66)
@@ -12,7 +12,7 @@
 * **Windows(preferably)**, Linux, macOS (I not have hardware machines for tests, compiler must work)
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
 * [Examples](https://github.com/Wiz-IO/platformio-quectel-examples) 
-* [Old version 1.0.0](https://github.com/Wiz-IO/LIB/blob/master/platformio-quectel-100.zip)
+
 
 
 
