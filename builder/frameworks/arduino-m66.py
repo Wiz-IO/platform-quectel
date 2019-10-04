@@ -32,7 +32,7 @@ def dev_create_template(env):
         for I in F:
             dst = join(D, I)
             if False == os.path.isfile(dst): 
-                print "+++> ",join(S, I), dst
+                #print( "+++> ", join(S, I), dst )
                 copyfile(join(S, I), dst)     
         os.rename(join(D, "arduino_task_cfg.h") , join(D, "custom_task_cfg.h") )
 
