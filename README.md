@@ -35,6 +35,7 @@ https://www.youtube.com/watch?v=DJ0nZS5HwHU
 ## Install Platform
 
 **The platform work with Python 2, Before install PlatformIO remove Python 3 form system PATH**
+
 _if Python 3 exist in system path, PIO will install Python 3 by default ( Application Uploader issues )_
 
 PIO Home > Platforms > Advanced Installation 
