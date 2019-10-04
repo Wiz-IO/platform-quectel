@@ -20,7 +20,7 @@ def makeHDR( dat ):
     dst.write(data) 
     
     src_size = os.stat( dat ).st_size + 64 # ? ? ?
-    #print "APPLICATION SIZE: ", src_size + 64, " bytes"
+    #print( "APPLICATION SIZE: ", src_size + 64, " bytes" )
     dst.write( struct.pack('<i', src_size) ) # write size 
 
     arr = [                        0xFF, 0xFF, 0xFF, 0xFF, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
@@ -85,9 +85,9 @@ def makeFotaInfo(dst, offset, start, size):
     dst.write( struct.pack('<i', 0x00000000) )      # m_bin_reserved[4]         
 
 def makeFota(src):
-    print "FOTA SRC:", src
-    print "FOTA DIR:", os.path.dirname(src)
-    print "FOTA SIZ:", os.path.getsize(src)
+    print( "FOTA SRC:", src )
+    print( "FOTA DIR:", os.path.dirname(src) )
+    print( "FOTA SIZ:", os.path.getsize(src) )
 
     binSize = os.path.getsize(src)
     dst = open(os.path.dirname(src) + "\\FOTA_program.bin", "wb")
