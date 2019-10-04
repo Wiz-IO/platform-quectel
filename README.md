@@ -1,7 +1,7 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
-* **The platform work with Python 2, Before install PlatformIO remove Python 3 and form system PATH**
+* **The platform work with Python 2, Before install PlatformIO remove Python 3 form system PATH**
 * **Version: 2.0.4**
 * * NEW: BC66 OpenCPU SDK 1.4
 * * NEW: BC66 Arduino for [BC66NBR01A07](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-Arduino#ini-for-bc66)
@@ -34,7 +34,7 @@ https://www.youtube.com/watch?v=DJ0nZS5HwHU
 
 ## Install Platform
 
-**The platform work with Python 2, Before install PlatformIO remove Python 3 and form system PATH**
+**The platform work with Python 2, Before install PlatformIO remove Python 3 form system PATH**
 _if Python 3 exist in system path, PIO will install Python 3 by default ( Application Uploader issues )_
 
 PIO Home > Platforms > Advanced Installation 
