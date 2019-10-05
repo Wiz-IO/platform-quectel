@@ -43,6 +43,10 @@ from os.path import join
 from serial import Serial
 from binascii import hexlify
 
+if sys.version_info >= (3, 0):
+    def xrange(*args, **kwargs):
+        return iter(range(*args, **kwargs))
+
 DEBUG = False
 
 NONE                        =''
