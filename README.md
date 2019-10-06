@@ -34,7 +34,7 @@ https://www.youtube.com/watch?v=DJ0nZS5HwHU
 
 ## Install Platform
 
-**Python 2 & 3 compatable in process, if issue - connect me **
+_Python 2 & 3 compatable in process, if issue - report_
 
 PIO Home > Platforms > Advanced Installation 
 
@@ -45,14 +45,15 @@ paste https://github.com/Wiz-IO/platform-quectel.git
 
 ## Thanks to
 
-* Ivan Kravets ( PlatformIO )
 * Radu Igret ( Quectel )
+* Ivan Kravets ( PlatformIO )
 * [comet.bg](https://www.comet.bg/?cid=92)
 
 **Support links**
 
-* https://community.platformio.org
+* https://forums.quectel.com/
 * https://www.quectel.com/support/contact.htm
+* https://community.platformio.org
 * https://www.comet.bg/?cid=92
 * 
 
