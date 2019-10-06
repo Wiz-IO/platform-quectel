@@ -34,9 +34,7 @@ https://www.youtube.com/watch?v=DJ0nZS5HwHU
 
 ## Install Platform
 
-**( Python 2 & 3 compatable in process, if issue - connect me )**
-
-_if Python 3 exist in system path, PIO will install Python 3 by default ( Application Uploader issues )_
+**Python 2 & 3 compatable in process, if issue - connect me **
 
 PIO Home > Platforms > Advanced Installation 
 
