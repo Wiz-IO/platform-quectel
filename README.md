@@ -1,7 +1,7 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
-* **Python 2 & 3 compatable in process, if issue - connect me**
+* **Python 2 & 3 compatable in process, if issue - report**
 * **Version: 2.0.5**
 * * NEW: BC66 OpenCPU SDK 1.4
 * * NEW: BC66 Arduino for [BC66NBR01A07](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-Arduino#ini-for-bc66)
