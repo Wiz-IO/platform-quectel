@@ -19,7 +19,7 @@ def dev_uploader(target, source, env):
 
 def dev_header(target, source, env):
     d = source[0].path 
-    print d
+    #print( d )
     f = open(d.replace("program.bin", "oem_app_path.ini"), "wb")
     f.write("/datatx/program.bin")
     f.close()
@@ -56,7 +56,7 @@ def dev_init(env, platform):
     env.base = env.BoardConfig().get("build.base", "0x40000000")    
     env.heap = env.BoardConfig().get("build.heap", "1048576") 
 
-    print "CORE", core, env.sdk, "RO_BASE =", env.base, "HEAP =", env.heap
+    print( "CORE", core, env.sdk, "RO_BASE =", env.base, "HEAP =", env.heap )
 
     env.Append(
        CPPDEFINES = [ # -D                         

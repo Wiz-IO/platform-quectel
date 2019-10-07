@@ -1,41 +1,44 @@
 ############################################################################
- # 
- # Mediatek MT2625 Flash Utility ver 1.00
- #
- #   Copyright (C) 2019 Georgi Angelov. All rights reserved.
- #   Author: Georgi Angelov <the.wizarda@gmail.com> WizIO
- #
- # Redistribution and use in source and binary forms, with or without
- # modification, are permitted provided that the following conditions
- # are met:
- #
- # 1. Redistributions of source code must retain the above copyright
- #    notice, this list of conditions and the following disclaimer.
- # 2. Redistributions in binary form must reproduce the above copyright
- #    notice, this list of conditions and the following disclaimer in
- #    the documentation and/or other materials provided with the
- #    distribution.
- # 3. Neither the name WizIO nor the names of its contributors may be
- #    used to endorse or promote products derived from this software
- #    without specific prior written permission.
- #
- # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- # "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- # LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- # FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- # COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- # INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- # BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
- # OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
- # AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- # LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- # POSSIBILITY OF SUCH DAMAGE.
- #
- ############################################################################
- # Dependency:
- #      https://github.com/pyserial/pyserial/tree/master/serial
- ############################################################################
+# 
+# Mediatek MT2625 Flash Utility ver 2.00
+#
+#   Copyright (C) 2019 Georgi Angelov. All rights reserved.
+#   Author: Georgi Angelov <the.wizarda@gmail.com> WizIO
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
+#    distribution.
+# 3. Neither the name WizIO nor the names of its contributors may be
+#    used to endorse or promote products derived from this software
+#    without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+# FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+# COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+# OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+# AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+############################################################################
+# Compatable: 
+#   Python 2 & 3
+# Dependency:
+#   https://github.com/pyserial/pyserial/tree/master/serial
+############################################################################
+
 from __future__ import print_function
 import os, sys, struct, time, inspect
 import os.path
@@ -43,35 +46,44 @@ from os.path import join
 from serial import Serial
 from binascii import hexlify
 
-DEBUG = False
+############################################################################
 
-NONE                        =''
-CONF                        =b'\x69'
-STOP                        =b'\x96'
-ACK                         =b'\x5A'
-NACK                        =b'\xA5'
+PYTHON2 = sys.version_info[0] < 3  # True if on pre-Python 3
 
-CMD_READ16                  =b'\xD0'
-CMD_READ32                  =b'\xD1'
-CMD_WRITE16                 =b'\xD2'
-CMD_WRITE32                 =b'\xD4' 
-CMD_JUMP_DA                 =b'\xD5'    
-CMD_SEND_DA                 =b'\xD7'
-CMD_SEND_EPP                =b'\xD9'
+if PYTHON2:
+    pass
+else:
+    def xrange(*args, **kwargs):
+        return iter( range(*args, **kwargs) )
+    
+############################################################################
 
-DA_READ                     =b'\xD6'
-DA_FINISH                   =b'\xD9'
-DA_NWDM_INFO                =b'\x80'
-DA_P2A                      =b'\xB0'
-DA_A2P                      =b'\xB1'
-DA_WRITE_ADDR               =b'\xB2'
+DEBUG               = False
+
+CONF                =b'\x69'
+STOP                =b'\x96'
+ACK                 =b'\x5A'
+NACK                =b'\xA5'
+CMD_READ16          =b'\xD0'
+CMD_READ32          =b'\xD1'
+CMD_WRITE16         =b'\xD2'
+CMD_WRITE32         =b'\xD4' 
+CMD_JUMP_DA         =b'\xD5'    
+CMD_SEND_DA         =b'\xD7'
+CMD_SEND_EPP        =b'\xD9'
+DA_READ             =b'\xD6'
+DA_FINISH           =b'\xD9'
+DA_NWDM_INFO        =b'\x80'
+DA_P2A              =b'\xB0'
+DA_A2P              =b'\xB1'
+DA_WRITE_ADDR       =b'\xB2'
 
 def DBG(s):
     if DEBUG:
         print(s) 
 
 def ERROR(message):
-    print("\n\033[31mERROR: {}".format(message) )
+    print("\nERROR: {}".format(message) )
     time.sleep(0.1)
     exit(2)
 
@@ -81,17 +93,20 @@ def ASSERT(flag, message):
 
 def PB_BEGIN(text):
     if DEBUG == False:
-        print('\033[94m' + text, end='')
+        print(text, end='')
 
 def PB_STEP():
     if DEBUG == False: 
-        print('.', end='')    
+        print('=', end='')    
 
 def PB_END():
     if DEBUG == False:
         print("> DONE")
 
 def hexs(s):
+    if False == PYTHON2: 
+        if str == type(s):
+            s = bytearray(s, 'utf-8')
     return hexlify(s).decode("ascii").upper()
 
 def rem_zero(str):  
@@ -100,10 +115,15 @@ def rem_zero(str):
         if i % 2 != 0: r = r + str[i]  
     return r  
 
-def checksum(data, c = 0):
-    for i in range(len(data)):
-        c += ord(data[i])
+def checksum(data, c = 0): 
+    for i in range( len(data) ): 
+        if PYTHON2:
+            c += ord( data[i] ) #py2
+        else:
+            c += data[i]        #py3
     return c
+
+############################################################################
 
 class MT2625:  
     DEVICE = {
@@ -126,12 +146,11 @@ class MT2625:
         }     
     }
 
-    def __init__(self, ser, auto_reset):
+    def __init__(self, ser):
         self.s = ser
         self.dir = os.path.dirname( os.path.realpath(__file__) )
         self.nvdm_address = 0
         self.nvdm_length = 0  
-        self.auto_reset = auto_reset
 
     def read(self, read_size = 0):
         r = ""
@@ -141,39 +160,34 @@ class MT2625:
                 print("<-- {}".format(hexs(r)))
             else: 
                 PB_STEP()
-            #ASSERT(len(r) == read_size, "read size")
         return r        
 
-    def send(self, data, read_size = 0):
+    def send(self, data, read_size = 0): # py3
         r = ""
         if len(data):
             if DEBUG: 
                 print("--> {}".format(hexs(data)))
             else:
-                PB_STEP()
-            self.s.write(data) 
+                PB_STEP()        
+            if True == PYTHON2: 
+                self.s.write(data)      
+            elif str == type(data):
+                self.s.write( bytearray(data, 'utf-8') ) 
+            else:
+                self.s.write(data) 
         return self.read(read_size)        
 
     def cmd(self, cmd, read_size = 0):
         r = ""    
         size = len(cmd)
         if size > 0: 
-            ASSERT(self.send(cmd, size) == cmd, "cmd echo")
+            ASSERT(self.send(cmd, size) == cmd, "CMD Echo")
         return self.read(read_size)       
 
     def boot(self, timeout):
-        self.s.timeout = 0.01
+        self.s.timeout = 0.02 # maybe must more
         step = 0
-        if self.auto_reset:
-            # Toggle PWRKEY for 600ms
-            self.s.dtr = 0
-            time.sleep(0.6)
-            self.s.dtr = 1
-            # Toggle RESET for 100ms
-            self.s.rts = 0
-            time.sleep(0.1)
-            self.s.rts = 1
-        PB_BEGIN( 'Wait for Power ON or Reset module <' )
+        PB_BEGIN( 'Waiting module for POWER-ON or RESET <' )
         while True:
             if step % 10 == 0: PB_STEP()
             step += 1
@@ -199,7 +213,7 @@ class MT2625:
 
     def da_read(self, address, size=4096, block=4096):   
         DBG("READ: %08X | %08X | %08X" % (address, size, block)) 
-        ASSERT(self.send(DA_READ + struct.pack(">III", address, size, block), 1) == ACK, "answer") 
+        ASSERT(self.send(DA_READ + struct.pack(">III", address, size, block), 1) == ACK, "da_read ACK Answer") 
 
     def da_read_buffer(self, block=4096):
         data = self.s.read(block)
@@ -209,7 +223,7 @@ class MT2625:
 
     def da_write_address(self, address, size, block=4096):
         DBG("WRITE: %08X | %08X | %08X" % (address, size, block))
-        ASSERT(self.send(DA_WRITE_ADDR + struct.pack(">III", address, size, block), 2) == ACK+ACK, "da_write_address")     
+        ASSERT(self.send(DA_WRITE_ADDR + struct.pack(">III", address, size, block), 2) == ACK + ACK, "da_write_address ACK Answer")     
 
     def da_write_buffer(self, data, cs):
         c = checksum(data) 
@@ -217,7 +231,7 @@ class MT2625:
         self.send(struct.pack(">H", c & 0xFFFF))
         if self.read(1) != CONF: 
             self.read(4)           
-            ASSERT(False, "da_write_buffer crc") #A5 00 00 0B F5
+            ASSERT(False, "da_write_buffer CRC") #A5 00 00 0B F5
         PB_STEP() 
         return cs + c 
 
@@ -229,19 +243,18 @@ class MT2625:
             data = data[block:]
             cs = self.da_write_buffer(d, cs)
         ASSERT(self.read(1) == ACK, "da_write_all ack")
-        ASSERT(self.send(struct.pack(">H", cs & 0xFFFF), 1) == ACK, "da_write_all crc")   
+        ASSERT(self.send(struct.pack(">H", cs & 0xFFFF), 1) == ACK, "da_write_all CRC")   
         ASSERT(self.send("\xA5", 1) == ACK, "da_write_all end")               
 
     def da_p2a(self, page): # page to address
         r = self.send(DA_P2A + struct.pack(">I", page), 5) # res = 08292000-5A
-        ASSERT(r[4] == ACK, "page to address")
+        ASSERT(r[4] == ACK[0], "Page to address")
         return struct.unpack(">I", r[:4])[0]
         
     def da_a2p(self, address): # address to page
         r = self.send(DA_A2P + struct.pack(">I", address), 5) # res = 00000292-5A
-        ASSERT(r[4] == ACK, "address to page")
+        ASSERT(r[4] == ACK[0], "Address to page")
         return struct.unpack(">I", r[:4])[0]
-
 
     def get_da(self, offset, size):
         self.fd.seek( offset )
@@ -260,29 +273,30 @@ class MT2625:
     def uart_speed_max(self):
         self.s.write(ACK)
         self.s.read(2)
-        self.s.write(ACK+b'\x01')
+        self.s.write(ACK + b'\x01')
         self.s.read(2)
         self.s.write(ACK)
         self.s.read(2)
-        self.s.write(ACK+ACK)  
-        time.sleep(0.1)
+        self.s.write(ACK + ACK)  
         # SET BAUDRATE
         self.s.baudrate = 921600 
         self.s.write(CONF)
-        ASSERT(self.s.read(1) == CONF, "uart brg 69") 
+        ASSERT(self.s.read(1) == CONF, "Uart brg CONF") 
         self.s.write(ACK)
-        ASSERT(self.s.read(1) == ACK, "uart brg 5A")         
-        # SYNC UART
+        ASSERT(self.s.read(1) == ACK, "Uart brg ACK")         
+        # SYNC UART # py3
         for i in xrange(15, 255, 15): 
-            self.s.write( chr( i ) )     
-            ASSERT( self.s.read( 1 ) == chr( i ), "uart sync") 
-        ASSERT(self.s.read(2) == "\0\0", "uart test 0") 
+            wr = struct.pack(b'<B', i)
+            self.s.write( wr )     
+            rd = self.s.read( 1 )
+            ASSERT( rd == wr, "uart sync") 
+        ASSERT(self.s.read(2) == b"\0\0", "Uart test 0") 
         self.s.write(ACK)
-        ASSERT(self.s.read(2) == "\0\0", "uart test 2")   
+        ASSERT(self.s.read(2) == b"\0\0", "Uart test 2")   
         self.s.write(ACK)
-        ASSERT(self.s.read(4) == "\0\0\0\0", "uart test 4") 
+        ASSERT(self.s.read(4) == b"\0\0\0\0", "Uart test 4") 
         self.s.write(ACK)   
-        ASSERT(self.s.read(6) == "\0\0\0\0\0\0", "uart test 6")
+        ASSERT(self.s.read(6) == b"\0\0\0\0\0\0", "Uart test 6")
         self.s.reset_input_buffer()
         self.s.reset_output_buffer()
 
@@ -292,10 +306,10 @@ class MT2625:
         self.chip_0 = self.da_read16(0x80000000)   
         self.chip_4 = self.da_read16(0x80000004)  
         if self.da_read16(0x80000008)[1] != 0x2625: 
-            ERROR("unknown chipset id")
+            ERROR("Unknown chipset id")
         self.chip_ver = self.da_read16(0x8000000C)[1] 
         if self.chip_ver != 0x8300 and self.chip_ver != 0x8100: 
-            ERROR("unknown chipset version")    
+            ERROR("Unknown chipset version")    
         self.chip = hex(self.chip_ver) + ".0" # or ".1"           
         PB_END()            
 
@@ -320,7 +334,7 @@ class MT2625:
         global imei
         imei = ''
         PB_BEGIN( 'Read nvdm <' )
-        ASSERT(self.nvdm_address != 0 or self.nvdm_length != 0, "nvdm params")
+        ASSERT(self.nvdm_address != 0 or self.nvdm_length != 0, "NVDM Params")
         self.da_read(self.nvdm_address, self.nvdm_length)
         if fname == "":
             fname = join(self.dir, "nvdm.bin")
@@ -341,18 +355,13 @@ class MT2625:
         PB_END() 
 
     def end(self):
-        self.s.write(DA_FINISH+'\x00')
+        self.s.write(DA_FINISH + b'\x00')
         ASSERT( self.s.read(1) == b'\x5A', "Finish") 
-        # Power-up the board after upload
-        if self.auto_reset:
-            self.s.dtr = 0
-            time.sleep(0.6)
-            self.s.dtr = 1
 
     def begin(self, nvdm = 0):
         ASSERT( self.chip in self.DA, "Unknown module: {}".format(self.chip) )
         self.s.timeout = 0.1
-        PB_BEGIN( 'Begin <' )
+        PB_BEGIN( 'Starting <' )
         # DA_1
         offset  = self.DA[self.chip]["1"]["offset"]
         size    = self.DA[self.chip]["1"]["size"]
@@ -363,7 +372,7 @@ class MT2625:
             self.s.write(data[:1024])                        
             data = data[1024:]  
             PB_STEP()   
-        ASSERT( self.cmd("", 10) == b"\x1D\x3D\0\0\0\0\0\0\0\0", "EPP answer" ) 
+        ASSERT( self.cmd("", 10) == b"\x1D\x3D\0\0\0\0\0\0\0\0", "EPP Answer" ) 
         self.uart_speed_max()           
         # DA_2
         offset  = self.DA[self.chip]["2"]["offset"]
@@ -385,8 +394,9 @@ class MT2625:
         flashData = self.get_da_info(flashID, self.DA[self.chip]["3"]["offset"], self.DA[self.chip]["3"]["size"]) 
         r = self.send(b"\x24", 1)               # <-- 5A                         
         self.send(flashData)                    # ????
-        flashInfo = self.s.read(80)
-        ASSERT( flashInfo[-1] == ACK, "flash info")
+        flashInfo = self.s.read( 80 )           # unknow len [67]
+        i = len( flashInfo ) - 1
+        ASSERT( flashInfo[i] == ACK[0], "Flash info") # py2 Z = Z .... py3 90 = b'Z'
         self.send(ACK)
         if nvdm > 0:
             self.send(DA_NWDM_INFO)
@@ -427,18 +437,18 @@ class MT2625:
         last_address = self.da_p2a(last_page + 1) 
         rem_first = app_address - first_address
         rem_last = last_address - (app_address+app_size)
-        DBG("app  SIZE: %08X" % app_size)
-        DBG("app-b ADR: %08X" % app_address)
-        DBG("app-e ADR: %08X" % (app_address + app_size))
+        DBG("APP  SIZE: %08X" % app_size)
+        DBG("APP-B ADR: %08X" % app_address)
+        DBG("APP-E ADR: %08X" % (app_address + app_size))
         DBG("FIRST ADR: %08X" % first_address)
         DBG("FIRST REM: %08X" % rem_first)
         DBG("LAST  ADR: %08X" % last_address)
         DBG("LAST  REM: %08X" % rem_last)
         bin = ''
-        if rem_first > 0:
+        if rem_first > 0: # REPLACE FIRST PAGE 
             self.da_read(first_address)
             data, crc = self.da_read_buffer() 
-            ASSERT( len(data) == 4096, "first data size" )
+            ASSERT( len(data) == 4096, "First data size" )
             bin = data[0: rem_first]
             bin += app_data
             DBG("REPLACED FIRST PAGE")
@@ -447,7 +457,7 @@ class MT2625:
         if rem_last > 0: # REPLACE LAST PAGE            
             self.da_read(last_address)
             data, crc = self.da_read_buffer()    
-            ASSERT( len(data) == 4096, "last data size" ) 
+            ASSERT( len(data) == 4096, "Last data size" ) 
             bin += data[-rem_last:] 
             DBG("REPLACED LAST PAGE")
         # WRITE
@@ -459,11 +469,14 @@ class MT2625:
         PB_END()        
         DBG("Application <{}> READY".format(self.app_name ))
 
-def upload_app(module, file_name, com_port, auto_reset = False): 
+############################################################################
+
+def upload_app(module, file_name, com_port): 
     ASSERT( os.path.isfile(file_name) == True, "No such file: " + file_name )
-    m = MT2625( Serial(com_port, 115200), auto_reset ) 
+    m = MT2625( Serial(com_port, 115200) ) 
     m.connect(9.0)    
     m.begin()  
     m.uploadApplication(module, file_name)
     m.end()
+    m.s.close()
     return 0  

@@ -19,14 +19,14 @@ from os.path import join
 from shutil import copyfile, rmtree
 from xml.etree import ElementTree
 
-print "\nBEGIN"
+print( "\nBEGIN" )
 
 ROOT_DIR = os.path.dirname(os.path.realpath(__file__)).replace("\\", "/")
 UPDATE_DIR = join(ROOT_DIR, "update")
 CLEAR_DIR = join(ROOT_DIR, "CLEAN_EFS")
 
 if False == os.path.isdir(UPDATE_DIR): 
-    print "ERROR 'update' folder missing"
+    print( "ERROR 'update' folder missing" )
     raise SystemExit
 
 FILES = [
@@ -75,5 +75,5 @@ tree = ElementTree.ElementTree()
 tree._setroot(xml)
 tree.write(join(CLEAR_DIR, FILES[0]))
 
-print "   Load folder 'CLEAN_EFS' as firmware and flash it"
-print "END"
+print( "   Load folder 'CLEAN_EFS' as firmware and flash it" )
+print( "END" )

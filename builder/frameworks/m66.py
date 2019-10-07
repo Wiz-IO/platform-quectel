@@ -34,7 +34,7 @@ def makeHDR( dat ):
     dst.write( src.read() )
     for i in range(rem_size):
         dst.write("\0")
-    print "BIN SIZE:", dst.tell()/1024, "kB"
+    print( "BIN SIZE:", dst.tell()/1024, "kB" )
 
     src.close()
     dst.close()  
