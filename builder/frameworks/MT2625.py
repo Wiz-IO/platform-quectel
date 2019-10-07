@@ -146,11 +146,12 @@ class MT2625:
         }     
     }
 
-    def __init__(self, ser):
+    def __init__(self, ser, auto_reset):
         self.s = ser
         self.dir = os.path.dirname( os.path.realpath(__file__) )
         self.nvdm_address = 0
         self.nvdm_length = 0  
+        self.auto_reset = auto_reset
 
     def read(self, read_size = 0):
         r = ""
@@ -187,6 +188,15 @@ class MT2625:
     def boot(self, timeout):
         self.s.timeout = 0.02 # maybe must more
         step = 0
+        if self.auto_reset:
+            # Toggle PWRKEY for 600ms
+            self.s.dtr = 0
+            time.sleep(0.6)
+            self.s.dtr = 1
+            # Toggle RESET for 100ms
+            self.s.rts = 0
+            time.sleep(0.1)
+            self.s.rts = 1
         PB_BEGIN( 'Waiting module for POWER-ON or RESET <' )
         while True:
             if step % 10 == 0: PB_STEP()
@@ -278,6 +288,7 @@ class MT2625:
         self.s.write(ACK)
         self.s.read(2)
         self.s.write(ACK + ACK)  
+        time.sleep(0.1)
         # SET BAUDRATE
         self.s.baudrate = 921600 
         self.s.write(CONF)
@@ -357,6 +368,10 @@ class MT2625:
     def end(self):
         self.s.write(DA_FINISH + b'\x00')
         ASSERT( self.s.read(1) == b'\x5A', "Finish") 
+        if self.auto_reset:
+            self.s.dtr = 0
+            time.sleep(0.6)
+            self.s.dtr = 1
 
     def begin(self, nvdm = 0):
         ASSERT( self.chip in self.DA, "Unknown module: {}".format(self.chip) )
@@ -471,9 +486,9 @@ class MT2625:
 
 ############################################################################
 
-def upload_app(module, file_name, com_port): 
+def upload_app(module, file_name, com_port, auto_reset = False): 
     ASSERT( os.path.isfile(file_name) == True, "No such file: " + file_name )
-    m = MT2625( Serial(com_port, 115200) ) 
+    m = MT2625( Serial(com_port, 115200), auto_reset ) 
     m.connect(9.0)    
     m.begin()  
     m.uploadApplication(module, file_name)
