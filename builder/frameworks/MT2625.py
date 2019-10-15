@@ -1,6 +1,6 @@
 ############################################################################
 # 
-# Mediatek MT2625 Flash Utility ver 2.00
+# Mediatek MT2625 Flash Utility ver 2.01
 #
 #   Copyright (C) 2019 Georgi Angelov. All rights reserved.
 #   Author: Georgi Angelov <the.wizarda@gmail.com> WizIO
