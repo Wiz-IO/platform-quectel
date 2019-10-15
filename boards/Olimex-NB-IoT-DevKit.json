@@ -1,0 +1,27 @@
+{
+  "name": "Olimex NB-IoT-DevKit",
+  "url": "https://www.olimex.com",
+  "build": {
+    "core": "bc66",
+    "f_cpu": "78000000L",
+    "mcu": "ARM, MT2625",
+    "variant": "bc66-te-b"
+  },
+  "debug": {
+    "tools": {
+      "uart": {
+        "onboard": true,
+        "extra_cmds": [],
+        "load_cmd": [],
+        "server": {}
+      }
+    }
+  },  
+  "frameworks": ["opencpu", "arduino"],
+  "vendor": "Olimex",
+  "upload": {
+        "maximum_ram_size": 100000,
+        "maximum_size": 200000,
+        "plugin": "Olimex-NB-IoT-DevKit"
+  }
+}
