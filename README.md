@@ -2,7 +2,8 @@
 
 **A few words in the beginning**
 * **Python 2 & 3 compatable in process, if issue - report**
-* **Version: 2.0.5**
+* **Version: 2.0.6**
+* * NEW: Board support [Olimex-NB-IoT-DevKit](https://github.com/Wiz-IO/platform-quectel/wiki/BOARD-Olimex-NB-IoT-DevKit)
 * * NEW: BC66 OpenCPU SDK 1.4
 * * NEW: BC66 Arduino for [BC66NBR01A07](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-Arduino#ini-for-bc66)
 * * [ThreadX and Arduino for BG96](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-ThreadX)( Qualcomm MDM9206 )
