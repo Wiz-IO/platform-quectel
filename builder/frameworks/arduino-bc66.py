@@ -10,7 +10,13 @@ from bc66 import makeHDR, makeCFG
 from MT2625 import upload_app
 
 def dev_uploader(target, source, env):
-    return upload_app(env.BoardConfig().get("build.core"), join(env.get("BUILD_DIR"), "program.bin"), env.get("UPLOAD_PORT")) 
+    try:
+        plugin = env.BoardConfig().get("upload.plugin")
+        sys.path.insert(0, join( os.path.dirname( os.path.abspath( env["PLATFORM_MANIFEST"] ) ), "boards",  )) 
+        print("THE UPLOADER USE PLUGIN", plugin )
+    except:
+        plugin = None       
+    return upload_app(env.BoardConfig().get("build.core"), join(env.get("BUILD_DIR"), "program.bin"), env.get("UPLOAD_PORT"), plugin) 
 
 def dev_header(target, source, env):
     makeHDR( source[0].path )
