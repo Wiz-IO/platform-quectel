@@ -190,7 +190,7 @@ class MT2625:
         return self.read(read_size)       
 
     def boot(self, timeout):
-        self.s.timeout = 0.02 # maybe must more
+        self.s.timeout = 0.05 # maybe must more
         step = 0
         PB_BEGIN( 'Waiting module for POWER-ON or RESET <' )
         if None != self.plugin: self.p.onBoot(self.s)
