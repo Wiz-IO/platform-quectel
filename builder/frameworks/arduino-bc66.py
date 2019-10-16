@@ -2,7 +2,7 @@
 # http://www.wizio.eu/
 # https://github.com/Wiz-IO
 
-import os
+import os, sys
 from os.path import join
 from shutil import copyfile
 from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
