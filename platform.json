@@ -31,11 +31,7 @@
       "arduino": {
         "package": "framework-quectel",
         "script": "builder/frameworks/arduino.py"
-      },
-      "wizio": {
-        "package": "framework-quectel",
-        "script": "builder/frameworks/wizio.py"
-      }      
+      }     
   },
   "packages": {
     "framework-quectel": {
@@ -46,6 +42,10 @@
         "type": "toolchain",
         "version": "=1.70201.0"
     },
+    "toolchain-gcc-ec2x": {
+        "type": "toolchain",
+        "version": "https://github.com/Wiz-IO/LIB/raw/master/quectel/toolchain-gcc-ec2x-v1.0.0.zip"
+    },      
     "tool-quectel": {
         "type": "uploader",
         "version": "https://github.com/Wiz-IO/tool-quectel.git",
