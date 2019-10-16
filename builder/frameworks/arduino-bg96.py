@@ -20,7 +20,7 @@ def dev_uploader(target, source, env):
 def dev_header(target, source, env):
     d = source[0].path 
     #print( d )
-    f = open(d.replace("program.bin", "oem_app_path.ini"), "wb")
+    f = open(d.replace("program.bin", "oem_app_path.ini"), "w+")
     f.write("/datatx/program.bin")
     f.close()
 
