@@ -5,10 +5,6 @@
 * **Version: 2.0.7**
 * * NEW EC2x [OpenLinux](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-OpenLinux), Arduino - coming soon
 * * NEW: Board support [Olimex-NB-IoT-DevKit](https://github.com/Wiz-IO/platform-quectel/wiki/BOARD-Olimex-NB-IoT-DevKit)
-* * NEW: BC66 OpenCPU SDK 1.4
-* * NEW: BC66 Arduino for [BC66NBR01A07](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-Arduino#ini-for-bc66)
-* * [ThreadX and Arduino for BG96](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-ThreadX)( Qualcomm MDM9206 )
-* * OpenCPU for MC60 (attention: MC60 is different from MC60E)
 * This project not an official product of Quectel and is based on **reverse engineering**
 * Frameworks: OpenCPU ( M66, MC60, BC66 ), ThreadX ( BG96 ), Arduino ( BC66, M66, BG96 )
 * **Windows(preferably)**, Linux, macOS (I not have hardware machines for tests, compiler must work)
