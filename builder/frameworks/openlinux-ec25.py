@@ -44,15 +44,12 @@ def dev_init(env, platform):
     toolchain_dir = env.PioPlatform().get_package_dir("toolchain-gcc-ec2x") 
     env.framework_dir = env.PioPlatform().get_package_dir("framework-quectel") 
     
-    print(toolchain_dir)
     with open(join(toolchain_dir, "package.json"), 'r') as f:
         j = json.load(f)
         if 'path' in j:
-            print('PATH', j['path'])
             env['ENV']['PATH'] = join(j['path'], 'bin')
         else:
             print('[ERROR] PACKAGE COMPILER PATH')
-
     
     env.cortex = [ "-mtune=cortex-a7", "-march=armv7-a", "-mfpu=neon", "-mfloat-abi=softfp" ]
     env.Append(
@@ -96,3 +93,10 @@ def dev_init(env, platform):
         ), 
         UPLOADCMD = dev_uploader       
     )     
+    libs = []    
+    libs.append(
+        env.BuildLibrary(
+            join("$BUILD_DIR", "_custom"), 
+            join("$PROJECT_DIR", "lib"),                       
+    ))         
+    env.Append(LIBS = libs)
