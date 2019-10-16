@@ -1,0 +1,16 @@
+{
+  "name": "Quectel EC21 module",
+  "url": "https://www.quectel.com/product/ec25.htm",
+  "build": {
+    "core": "ec25",
+    "f_cpu": "1200000000L",
+    "mcu": "ARM, MDM9607",
+    "variant": "ec25"
+  },  
+  "frameworks": ["openlinux", "arduino"],
+  "vendor": "Quectel",
+  "upload": {
+        "maximum_ram_size": 10485761,
+        "maximum_size": 10485761
+  }
+}
