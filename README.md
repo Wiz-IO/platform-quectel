@@ -6,7 +6,11 @@
 * * NEW EC2x [OpenLinux](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-OpenLinux), Arduino - coming soon
 * * NEW: Board support [Olimex-NB-IoT-DevKit](https://github.com/Wiz-IO/platform-quectel/wiki/BOARD-Olimex-NB-IoT-DevKit)
 * This project not an official product of Quectel and is based on **reverse engineering**
-* Frameworks: OpenCPU ( M66, MC60, BC66 ), ThreadX ( BG96 ), Arduino ( BC66, M66, BG96 )
+* Frameworks: 
+* * OpenCPU ( M66, MC60, BC66 ) 
+* * ThreadX ( BG96 )
+* * OpenLinux ( EC21, EC25 )
+* * Arduino ( BC66, M66, BG96, EC2x )
 * **Windows(preferably)**, Linux, macOS (I not have hardware machines for tests, compiler must work)
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
 * [Examples](https://github.com/Wiz-IO/platformio-quectel-examples) 
