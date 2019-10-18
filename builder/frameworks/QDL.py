@@ -80,7 +80,6 @@ def PrintHex(s):
             s = bytearray(s, 'utf-8')
     return hexlify(s).decode("ascii").upper()
 
-# https://github.com/openpst/libopenpst/blob/master/include/qualcomm/dm_efs.h
 CMD_EfsHello           =  0  # Parameter negotiation packet               
 CMD_EfsQuery           =  1  # Send information about EFS2 params         
 CMD_EfsOpen            =  2  # Open a file                                
