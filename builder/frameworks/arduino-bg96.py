@@ -10,7 +10,7 @@ from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
 from colorama import Fore
 def dev_uploader(target, source, env):
     print(Fore.BLUE +  'Use QEFS_Explore.exe - DM Comm port')
-    print(Fore.BLUE +  'Upload from Project folder ') + env.subst("$BUILD_DIR").replace("\\", "/")
+    print(Fore.BLUE +  'Upload from Project folder ' + env.subst("$BUILD_DIR").replace("\\", "/") ) 
     print(Fore.GREEN + '    program.bin')
     print(Fore.GREEN + '    oem_app_path.ini ( only once )')    
     print(Fore.BLUE +  'To Module folder datatx/')
