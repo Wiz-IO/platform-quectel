@@ -1,8 +1,8 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
-* **Python 2 & 3 compatable in process, if issue - report**
-* **Version: 2.0.8**
+* **Version: 2.0.9** ( look here, if there is something new )
+* Python 2 & 3 compatable in process, if issue - report
 * * NEW: BG96 integrated application uploader
 * * NEW: EC2x [OpenLinux](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-OpenLinux), Arduino - coming soon
 * * NEW: Board support [Olimex-NB-IoT-DevKit](https://github.com/Wiz-IO/platform-quectel/wiki/BOARD-Olimex-NB-IoT-DevKit)
@@ -15,9 +15,6 @@
 * **Windows(preferably)**, Linux, macOS (I not have hardware machines for tests, compiler must work)
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
 * [Examples](https://github.com/Wiz-IO/platformio-quectel-examples) 
-
-
-
 
 **it should look like this...**
 
