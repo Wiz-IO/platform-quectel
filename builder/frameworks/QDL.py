@@ -95,7 +95,7 @@ CMD_EfsOpenDir         = 11  # Open a directory for reading
 CMD_EfsReadDir         = 12  # Read a directory                           
 CMD_EfsCloseDir        = 13  # Close an open directory  
 
-CMD_SUB_CMD            = b'\x4B\x3E'
+CMD_SUB_ID             = b'\x4B\x3E'
 
 class QDL:
     def __init__(self, ser):
