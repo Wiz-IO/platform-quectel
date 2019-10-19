@@ -46,6 +46,12 @@ paste https://github.com/Wiz-IO/platform-quectel.git
 **How to: [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)**
  and [EXAMPLES](https://github.com/Wiz-IO/platformio-quectel-examples)
 
+## Fast Uninstal
+* goto C:\Users\USER_NAME.platformio\platforms delete folder **quectel** ( builders )
+* goto C:\Users\USER_NAME.platformio\packages delete folder **framework-quectel** ( sources )
+* _goto C:\Users\USER_NAME.platformio\packages delete folder tool-quectel ( azsphere )_
+* _goto C:\Users\USER_NAME.platformio\packages delete folder toolchain-gccarmnoneeabi (compiler )_
+
 ## Thanks to
 
 * Radu Igret ( Quectel )
