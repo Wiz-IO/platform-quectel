@@ -1,27 +1,20 @@
 # WizIO 2019 Georgi Angelov
-# http://www.wizio.eu/
-# https://github.com/Wiz-IO
+#   http://www.wizio.eu/
+#   https://github.com/Wiz-IO/platform-quectel
 
 import os
 from os.path import join
 from shutil import copyfile
-from SCons.Script import ARGUMENTS, DefaultEnvironment, Builder
-#from QDL import bg96_upload
-
+from SCons.Script import DefaultEnvironment, Builder
 from colorama import Fore
+from QDL import bg96_upload
+
 def dev_uploader(target, source, env):
-    #bg96_upload(env.get("UPLOAD_PORT"), env.subst("$BUILD_DIR"))
-    print(Fore.BLUE +  'Use QEFS_Explore.exe - DM Comm port')
-    print(Fore.BLUE +  'Upload from Project folder ' + env.subst("$BUILD_DIR").replace("\\", "/") ) 
-    print(Fore.GREEN + '    program.bin')
-    print(Fore.GREEN + '    oem_app_path.ini ( only once )')    
-    print(Fore.BLUE +  'To Module folder datatx/')
-    print(Fore.BLUE + 'Restart module')
-    return 
+    print(Fore.BLUE +  'Must select DM Comm port ( platformio.ini, Add: upload_port = COMx )')
+    bg96_upload(env.get("UPLOAD_PORT"), env.subst("$BUILD_DIR"))
 
 def dev_header(target, source, env):
     d = source[0].path 
-    #print( d )
     f = open(d.replace("program.bin", "oem_app_path.ini"), "w+")
     f.write("/datatx/program.bin")
     f.close()
