@@ -26,8 +26,6 @@ https://youtu.be/YvHy1MLqH70
 
 https://www.youtube.com/watch?v=DJ0nZS5HwHU
 
-![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/boards.png) 
-
 ![Project](https://raw.githubusercontent.com/Wiz-IO/LIB/master/images/bc66-oled.jpg) 
 
 ![Project](https://raw.githubusercontent.com/Wiz-IO/platform-opencpu/master/on_linux.png) 
