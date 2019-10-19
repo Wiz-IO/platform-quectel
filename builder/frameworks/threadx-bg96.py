@@ -43,7 +43,6 @@ def dev_compiler(env):
         SIZEPRINTCMD='$SIZETOOL --mcu=$BOARD_MCU -C -d $SOURCES',
         PROGSUFFIX=".elf",  
     )
-    env.Append(UPLOAD_PORT='QEFS Explore') #upload_port = "must exist variable"
 
 def dev_init(env, platform):
     dev_create_template(env)
@@ -53,9 +52,7 @@ def dev_init(env, platform):
     env.sdk = env.BoardConfig().get("build.sdk", "SDK2").upper()  #SDK2 #SDK2831 #SDK325 #SDK424 
     env.base = env.BoardConfig().get("build.base", "0x40000000")    
     env.heap = env.BoardConfig().get("build.heap", "1048576") 
-
     print( "CORE", core, env.sdk, "RO_BASE =", env.base, "HEAP =", env.heap )
-
     env.Append(
        CPPDEFINES = [ # -D                         
             platform.upper(), 
