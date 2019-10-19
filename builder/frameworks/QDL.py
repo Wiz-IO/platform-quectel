@@ -80,62 +80,53 @@ def PrintHex(s):
             s = bytearray(s, 'utf-8')
     return hexlify(s).decode("ascii").upper()
 
-CMD_EfsHello           =  0  # Parameter negotiation packet               
-CMD_EfsQuery           =  1  # Send information about EFS2 params         
-CMD_EfsOpen            =  2  # Open a file                                
-CMD_EfsClose           =  3  # Close a file                               
-CMD_EfsRead            =  4  # Read a file                                
-CMD_EfsWrite           =  5  # Write a file                               
-CMD_EfsSymlink         =  6  # Create a symbolic link                     
-CMD_EfsReadLink        =  7  # Read a symbolic link                       
-CMD_EfsUnlink          =  8  # Remove a symbolic link or file             
-CMD_EfsMkdir           =  9  # Create a directory                         
-CMD_EfsRmdir           = 10  # Remove a directory                         
-CMD_EfsOpenDir         = 11  # Open a directory for reading               
-CMD_EfsReadDir         = 12  # Read a directory                           
-CMD_EfsCloseDir        = 13  # Close an open directory  
+CMD_EfsHello        =  0  # Parameter negotiation packet               
+CMD_EfsQuery        =  1  # Send information about EFS2 params         
+CMD_EfsOpen         =  2  # Open a file                                
+CMD_EfsClose        =  3  # Close a file                               
+CMD_EfsRead         =  4  # Read a file                                
+CMD_EfsWrite        =  5  # Write a file                               
+CMD_EfsSymlink      =  6  # Create a symbolic link                     
+CMD_EfsReadLink     =  7  # Read a symbolic link                       
+CMD_EfsUnlink       =  8  # Remove a symbolic link or file             
+CMD_EfsMkdir        =  9  # Create a directory                         
+CMD_EfsRmdir        = 10  # Remove a directory                         
+CMD_EfsOpenDir      = 11  # Open a directory for reading               
+CMD_EfsReadDir      = 12  # Read a directory                           
+CMD_EfsCloseDir     = 13  # Close an open directory  
 
-CMD_SUB_ID             = b'\x4B\x3E'
+EFS_HEADER          = 0x017E 
+EFS_FOOTER          = 0x7E
+CMD_SUB_ID          = 0x3E4B
 
 class QDL:
     def __init__(self, ser):
         self.s = ser
 
     def read(self, command):
-        b = b''
-        rx = self.s.read(2) # read header
-        b += rx  
-        ASSERT(2 == len(rx), 'read header len')
-        ASSERT(b'\x7E\x01' == rx, 'read header')    
-        rx = self.s.read(2) # read packed length  
-        b += rx
-        ASSERT(2 == len(rx), 'read lenght len')
-        L = struct.unpack("<H", rx)
-        L = L[0]   
-        rx = self.s.read(2) # read 4B3E ???
+        b = b'' 
+        rx = self.s.read(8) # # 7E01 1400 4B3E 0500 ... pyload
         b += rx 
-        ASSERT(2 == len(rx), 'read 4B3E len')
-        #ASSERT(b'\x4B\x3E' == rx, 'read 4B3E: ' + PrintHex(b)) 
-        rx = self.s.read(2) # read command length  
-        b += rx 
-        ASSERT(2 == len(rx), 'read command len')  
-        C = struct.unpack("<H", rx) 
-        C = C[0]
-        #ASSERT(C == command, 'read wrong command: ' + '[{:02X}] <<<'.format(command))
-        buffer = self.s.read(L - 4)
-        b += buffer 
-        ASSERT(L - 4 == len(buffer), 'read buffer size') 
-        rx = self.s.read(1) # read footer
+        ASSERT(8 == len(rx), 'read() header size')
+        a = struct.unpack("<HHHH", rx)
+        ASSERT(EFS_HEADER == a[0], 'read() header' + PrintHex(b)) 
+        ASSERT(CMD_SUB_ID == a[2], 'read() command sub id' + PrintHex(b)) 
+        ASSERT(command    == a[3], 'read() command' + PrintHex(b)) 
+        SIZE = a[1]
+        data = self.s.read(SIZE - 4) # read pyload
+        b += data 
+        ASSERT(SIZE - 4 == len(data), 'read data size') 
+        rx = self.s.read(1) # read footer 7E
         b += rx
-        ASSERT(1 == len(rx), 'read footer len')
-        ASSERT(b'\x7E' == rx, 'read futer')    
-        #DBG('[{:02X}] <<<'.format(command) + PrintHex(b) + '\n' + buffer)  
+        ASSERT(1 == len(rx), 'read() footer size')
+        ASSERT(b'\x7E' == rx, 'read() fооter')    
+        DBG('[{:02X}] <<<'.format(command) + PrintHex(b))  
         PB_STEP()
-        return buffer     
+        return data     
 
     def write(self, command, buffer):
         DBG()
-        tx = b'\x7E\x01' + struct.pack("<H", len(buffer) + 4) + b'\x4B\x3E' + struct.pack("<H", command) + buffer + b'\x7E'
+        tx = struct.pack("<HHHH",EFS_HEADER, len(buffer) + 4, CMD_SUB_ID, command) + buffer + b'\x7E'
         if len(tx) > 64: 
             DBG('[{:02X}] >>>'.format(command) + PrintHex(tx[:64]) + ' ...')
         else: 
@@ -144,8 +135,11 @@ class QDL:
         return self.s.write(tx)
 
     def OpenFile(self, fileName, flag = 0, mode = 0):
-        self.write(CMD_EfsOpen, struct.pack("<I", flag) + struct.pack("<I", mode) + fileName ) # [41 02 00 00] [B6 01 00 00]
-        self.read(CMD_EfsOpen)        
+        self.write(CMD_EfsOpen, struct.pack("<II", flag, mode) + fileName ) 
+        res = self.read(CMD_EfsOpen)  
+        a = struct.unpack("<II", res) # FD, ERR  
+        DBG('[OpenFile] ' + PrintHex(res)) 
+        ASSERT(a[0] != 0xFFFFFFFF, 'OpenFile() ' + PrintHex(res) ) 
         pass
 
     def WriteFile(self, fileName): 
@@ -155,10 +149,13 @@ class QDL:
         while data: 
             data = fd.read(1024)
             if b'' == data: 
-                DBG('E O F')
+                DBG('[WriteFile] EOF')
                 break  
-            self.write(CMD_EfsWrite, struct.pack("<I", 0) + struct.pack("<I", page) + data ) # [00 00 00 00] [00 04 00 00]
-            self.read(CMD_EfsWrite)  
+            self.write(CMD_EfsWrite, struct.pack("<II", 0, page) + data ) 
+            res = self.read(CMD_EfsWrite)  
+            DBG('[WriteFile] ' + PrintHex(res)) # 7E01 1400 4B3E 0500 [00000000 00000000 FFFFFFFF 09000000] 7E
+            a = struct.unpack("<IIII", res) # FD OFFSET WRITED ERROR
+            ASSERT(a[2] != 0xFFFFFFFF, 'WriteFile() ' + PrintHex(res) )
             page += 1024            
         fd.close()    
 
@@ -174,20 +171,22 @@ class QDL:
         self.write(CMD_EfsCloseDir, b'\x01\x00\x00\x00')
         self.read(CMD_EfsCloseDir)        
 
-    def wr(self, tx, rx):
+    def wr(self, tx, rx, test = False):
         DBG('W> ' +PrintHex(tx))
         self.s.write(tx)
         rs = self.s.read(len(rx)) 
         DBG('R< ' + PrintHex(rs))
-        ASSERT(len(rs) == len(rx), 'read len')
-        ASSERT(rs == rx, 'read data')      
+        ASSERT(b'' != rs, 'connect no response')
+        if test:
+            ASSERT(len(rs) == len(rx), 'rd len')
+            ASSERT(rs == rx, 'rd data')      
         DBG()
 
     def connect(self):
         self.s.timeout = 1
-        self.wr(b'\x0C\x14\x3A\x7E',                b'\x13\x0C\xD2\x7A\x7E')
-        self.wr(b'\x4B\x04\x0E\x00\x0D\xD3\x7E',    b'\x13\x4B\x04\x0E\x00\x28\x49\x7E')
-        self.wr(b'\x4B\x08\x02\x00\x0E\xDF\x7E',    b'\x4B\x08\x02\x00\x01\x50\x08\x7E')
+        self.wr(b'\x0C\x14\x3A\x7E',                b'\x13\x0C\xD2\x7A\x7E'                ) # unknown commands and answers
+        self.wr(b'\x4B\x04\x0E\x00\x0D\xD3\x7E',    b'\x13\x4B\x04\x0E\x00\x28\x49\x7E'    ) # init, get info ???
+        self.wr(b'\x4B\x08\x02\x00\x0E\xDF\x7E',    b'\x4B\x08\x02\x00\x01\x50\x08\x7E'    )
         self.wr(b'\x4B\x12\x18\x02\x01\x00\xD2\x7E',b'\x4B\x12\x18\x02\x01\x00\xAA\xF0\x7E')
         DBG('CONNECT')   
 
@@ -196,7 +195,6 @@ def bg96_upload(com_port, dir):
     q = QDL(ser)
     PB_BEGIN( 'CONNECTING TO DM-PORT <' )
     q.connect()
-    q.OpenDir(b'/datatx\0')
     PB_END() 
 
     PB_BEGIN( 'WRITE OEM_APP_PATH <' ) 
@@ -209,7 +207,6 @@ def bg96_upload(com_port, dir):
     q.OpenFile(b'/datatx/program.bin\0', 0x241, 0x1B6)
     q.WriteFile( join(dir, 'program.bin') )
     q.CloseFile()
-    
-    q.CloseDir()
+
     ser.close()  
     PB_END()  
