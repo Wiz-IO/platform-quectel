@@ -83,7 +83,8 @@ def dev_init(env, platform):
         ],        
         CFLAGS = [
             #"-std=c11",   
-            "-Wno-pointer-sign",                                                                      
+            "-Wno-pointer-sign", 
+            "-Wstrict-prototypes",
         ],  
         CXXFLAGS = [   
             #"-std=c++11",                             
@@ -104,7 +105,6 @@ def dev_init(env, platform):
             "-fno-zero-initialized-in-bss", 
             "-fsingle-precision-constant",                                                 
             "-Wall", 
-            "-Wstrict-prototypes", 
             "-Wp,-w",                                                       
         ],                     
         LINKFLAGS = [  
