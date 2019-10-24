@@ -1,5 +1,9 @@
 [23.10.2019]
-* Fix SDK325 must work ... need more test
+* Fix BG96 SDK424 ... not tested with module
+* * test firmware BG96MAR04A02M1G_01.002.01.002
+
+[23.10.2019]
+* Fix BG96 SDK325 must work ... need more test
 * * test firmware BG96MAR03A03M1G_01.002.01.002
 
 [21.10.2019]
