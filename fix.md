@@ -1,3 +1,7 @@
+[25.10.2019]
+* Fix all BG96 SDK
+* BG96 new Arduino HardwareSerial based of 'true' driver, must support full capabilities
+
 [24.10.2019]
 * Fix BG96 SDK424 ... not tested with module
 * * test firmware BG96MAR04A02M1G_01.002.01.002
