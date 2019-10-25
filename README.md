@@ -12,7 +12,7 @@
 * * ThreadX ( BG96 )
 * * OpenLinux ( EC21, EC25 )
 * * Arduino ( BC66, M66, BG96, EC2x )
-* **Windows(preferably)**, Linux, macOS (I not have hardware machines for tests, compiler must work)
+* **Windows**, Linux, macOS ( test and report )
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
 * [Examples](https://github.com/Wiz-IO/platformio-quectel-examples) 
 
