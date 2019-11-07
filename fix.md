@@ -1,3 +1,7 @@
+[07.11.2019]
+* Fix BC66 Arduino Wire ( Redferne Bellini )
+* Fix BC66 Arduino SPI ( Redferne Bellini )
+
 [25.10.2019]
 * Fix all BG96 SDK
 * BG96 new Arduino HardwareSerial based of 'true' driver, must support full capabilities
