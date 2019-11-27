@@ -119,7 +119,7 @@ class QDL:
         rx = self.s.read(1) # read footer 7E
         b += rx
         ASSERT(1 == len(rx), 'read() footer size')
-        ASSERT(b'\x7E' == rx, 'read() fооter')    
+        ASSERT(b'\x7E' == rx, 'read() footer')    
         DBG('[{:02X}] <<<'.format(command) + PrintHex(b))  
         PB_STEP()
         return data     
