@@ -42,10 +42,11 @@ paste https://github.com/Wiz-IO/platform-quectel.git
  and [EXAMPLES](https://github.com/Wiz-IO/platformio-quectel-examples)
 
 ## Fast Uninstal
-* goto C:\Users\USER_NAME.platformio\platforms delete folder **quectel** ( builders )
-* goto C:\Users\USER_NAME.platformio\packages delete folder **framework-quectel** ( sources )
-* _goto C:\Users\USER_NAME.platformio\packages delete folder tool-quectel ( any tools, may not delete )_
-* _goto C:\Users\USER_NAME.platformio\packages delete folder toolchain-gccarmnoneeabi (compiler, may not delete )_
+* goto C:\Users\USER_NAME.platformio\platforms 
+* delete folder **quectel** ( builders )
+* delete folder **framework-quectel** ( sources )
+* delete folder tool-quectel ( any tools, _may not delete_ )
+* delete folder toolchain-gccarmnoneeabi (compiler, _may not delete_ )
 
 ## Thanks to
 
