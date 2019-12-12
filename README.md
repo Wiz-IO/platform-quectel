@@ -35,7 +35,7 @@ _Python 2 & 3 compatable in process, if issue - report_
 
 PIO Home > Platforms > Advanced Installation 
 
-paste https://github.com/Wiz-IO/platform-quectel.git
+paste https://github.com/Wiz-IO/platform-quectel
 
 **How to: [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)**
  and [EXAMPLES](https://github.com/Wiz-IO/platformio-quectel-examples)
