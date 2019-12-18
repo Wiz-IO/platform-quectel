@@ -1,3 +1,7 @@
+[18.12.2019]
+* Add PSM.EDRX support for BC66 ( Redferne Bellini )
+* Add tone() for BC66 ( Redferne Bellini )
+
 [07.11.2019]
 * Fix BC66 Arduino Wire ( Redferne Bellini )
 * Fix BC66 Arduino SPI ( Redferne Bellini )
