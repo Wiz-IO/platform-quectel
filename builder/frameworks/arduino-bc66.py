@@ -1,6 +1,6 @@
-# WizIO 2019 Georgi Angelov
-# http://www.wizio.eu/
-# https://github.com/Wiz-IO
+# WizIO 2020 Georgi Angelov
+#   http://www.wizio.eu/
+#   https://github.com/Wiz-IO
 
 import os, sys
 from os.path import join
@@ -41,7 +41,6 @@ def dev_create_template(env):
                 copyfile(join(S, I), dst)     
         os.rename(join(D, "arduino_task_cfg.h") , join(D, "custom_task_cfg.h") )
 
-
 def dev_compiler(env):
     env.Replace(
         BUILD_DIR = env.subst("$BUILD_DIR").replace("\\", "/"),
@@ -54,91 +53,101 @@ def dev_compiler(env):
         RANLIB="arm-none-eabi-ranlib",
         SIZETOOL="arm-none-eabi-size",
         ARFLAGS=["rc"],
-        SIZEPROGREGEXP=r"^(?:\.text|\.data|\.bootloader)\s+(\d+).*",
+        SIZEPROGREGEXP=r"^(?:\.text|\.rodata)\s+(\d+).*",
         SIZEDATAREGEXP=r"^(?:\.data|\.bss|\.noinit)\s+(\d+).*",
         SIZECHECKCMD="$SIZETOOL -A -d $SOURCES",
-        SIZEPRINTCMD='$SIZETOOL --mcu=$BOARD_MCU -C -d $SOURCES',
+        SIZEPRINTCMD='$SIZETOOL -B -d $SOURCES',
         PROGSUFFIX=".elf",  
     )
+    env.cortex = ["-mcpu=cortex-m4", "-mfloat-abi=hard", "-mfpu=fpv4-sp-d16", "-mthumb", "-mthumb-interwork"] 
 
 def dev_init(env, platform):
     dev_create_template(env)
     dev_compiler(env)
     framework_dir = env.PioPlatform().get_package_dir("framework-quectel")
-    core = env.BoardConfig().get("build.core")     
+    arduino = join(framework_dir, platform)  
     variant = env.BoardConfig().get("build.variant")  
-    lib_dir = join(framework_dir, "libraries")
-    linker = join(lib_dir, "cpp_{}.ld".format(core))
-    env.firmware = env.BoardConfig().get("build.firmware", "BC66R01A04V01").replace("-", "_").replace(".", "_").upper()   
+    core = env.BoardConfig().get("build.core")     
+    sdk = join(framework_dir, "opencpu", core, env.BoardConfig().get("build.sdk", "SDK15"))
+    disable_nano = env.BoardConfig().get("build.disable_nano", "0") # defaut nano is enabled
+    nano = []
+    if disable_nano == "0":
+        nano = ["-specs=nano.specs", "-u", "_printf_float", "-u", "_scanf_float" ]      
     env.Append(
        CPPDEFINES = [ # -D 
-            "{}=200".format(platform.upper()), "CORE_" + core.upper().replace("-", "_"),
+            "{}=200".format(platform.upper()), 
+            "CORE_" + core.upper().replace("-", "_"),
         ],        
         CPPPATH = [ # -I
-            join(framework_dir,  "opencpu", core),
-            join(framework_dir,  "opencpu", core, "include"),
-            join(framework_dir,  "opencpu", core, "ril", "inc"),
-            join(framework_dir,  platform, platform),
-            join(framework_dir,  platform, "cores", core),
-            join(framework_dir,  platform, "variants", variant),           
-            join(framework_dir,  "api", core),
-            join(framework_dir,  "api", core, "include"),
-            join(framework_dir,  "api", core, "FreeRTOS", "Source", "include"), 
-            join(framework_dir,  "api", core, "lwip", "src", "include"),      
-            join(framework_dir,  "api", core, "lwip", "ports", "include"),    
+            sdk,
+            join(sdk, "wizio"),
+            join(sdk, "include"),
+            join(sdk, "ril", "inc"),
+
+            join(arduino, platform),
+            join(arduino, "cores", core),
+            join(arduino, "variants", variant),  
+
             join("$PROJECT_DIR", "lib"),
             join("$PROJECT_DIR", "include"), 
             join("$PROJECT_DIR", "config")         
-        ],        
+        ],    
+
         CFLAGS = [      
-            "-std=c11",  
-            "-Wno-pointer-sign",      
+            "-Wall", 
+            "-Wfatal-errors",
+            "-Wstrict-prototypes",
+            "-Wno-unused-function",
+            "-Wno-unused-variable",
+            "-Wno-int-conversion",
+            "-Wno-unused-but-set-variable",            
+            "-Wno-unused-value",    
+            "-Wno-pointer-sign",  
+            "-Wno-char-subscripts",
+            "-mno-unaligned-access", 
         ],
         CXXFLAGS = [   
-            "-std=c++11",                             
+            "-std=c++11",                              
             "-fno-rtti",
             "-fno-exceptions", 
             "-fno-non-call-exceptions",
             "-fno-use-cxa-atexit",
             "-fno-threadsafe-statics",
+            "-Wno-unused-variable",
+            "-Wno-unused-function",
+            "-Wno-unused-value"
         ],    
         CCFLAGS = [
-            "-Os", "-g",           
-            "-mcpu=cortex-m4",
-            "-mfloat-abi=hard",
-            "-mfpu=fpv4-sp-d16", 
-            "-mlittle-endian",      
-            "-mthumb", 
-            "-mthumb-interwork",                 
+            env.cortex,
+            "-Os",                          
             "-fdata-sections",      
             "-ffunction-sections",
             "-fno-strict-aliasing",
-            "-fsingle-precision-constant",             
+            "-fsingle-precision-constant",     
             "-Wall", 
-            "-Wstrict-prototypes", 
-            "-Wp,-w",            
-        ],        
-        LINKFLAGS = [    
-            "-mcpu=cortex-m4",
-            "-mfloat-abi=hard",
-            "-mfpu=fpv4-sp-d16", 
-            "-mlittle-endian",      
-            "-mthumb",      
-            "-mthumb-interwork",                                       
-            "-nostartfiles", 
-            "-nodefaultlibs",   
+            "-Wfatal-errors",                                
+            #"-Wp,-w",            
+        ],  
+              
+        LINKFLAGS = [
+            env.cortex,  
+            "-Os",                                        
+            "-nostartfiles",    
             "-fno-use-cxa-atexit",         
             "-Xlinker", "--gc-sections",              
             "-Wl,--gc-sections",
-        ],    
-        LIBPATH = [ lib_dir ],      
-        LDSCRIPT_PATH = linker, 
-        LIBS = [
-            "m", "gcc",
-            "_app_start_{}".format(core),
-            "_{}".format(env.firmware)
-        ],     
-        LIBSOURCE_DIRS=[ join(framework_dir, platform, "libraries", core), ],              
+            "--entry=proc_main_task",
+            nano,
+        ],  
+
+        LIBPATH = [ sdk ],  
+
+        LIBS = [ "m", "gcc",  "_app_start", ],  
+
+        LIBSOURCE_DIRS=[ join(arduino, "libraries", core) ],  #arduino libraries         
+
+        LDSCRIPT_PATH = join(sdk, "cpp_bc66.ld"),
+
         BUILDERS = dict(
             ElfToBin = Builder(
                 action = env.VerboseAction(" ".join([
@@ -158,31 +167,32 @@ def dev_init(env, platform):
         UPLOADCMD = dev_uploader
     )
     libs = []
+    
+    # ARDUINO 
     libs.append(
         env.BuildLibrary(
             join("$BUILD_DIR", "_" + platform),
-            join(framework_dir, platform, platform),
+            join(arduino, platform),
     ))    
     libs.append(
         env.BuildLibrary(
             join("$BUILD_DIR", "_core"),
-            join(framework_dir, platform, "cores", core),
+            join(arduino, "cores", core),
     ))    
     libs.append(
         env.BuildLibrary(
             join("$BUILD_DIR", "_variant"),
-            join(framework_dir, platform, "variants", variant),
-    ))       
-    libs.append(
-        env.BuildLibrary(
-            join("$BUILD_DIR", "_api"),
-            join(framework_dir, "api", core),
-    ))      
+            join(arduino, "variants", variant),
+    ))    
+
+    # OPENCPU   
     libs.append(
         env.BuildLibrary(
             join("$BUILD_DIR", "_opencpu"),
-            join(framework_dir, "opencpu", core),
-    ))  
+            sdk,
+    ))
+
+    # PROJECT  
     libs.append(
         env.BuildLibrary(
             join("$BUILD_DIR", "_custom_lib"), 

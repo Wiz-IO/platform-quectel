@@ -1,6 +1,6 @@
 # WizIO 2019 Georgi Angelov
-# http://www.wizio.eu/
-# https://github.com/Wiz-IO
+#   http://www.wizio.eu/
+#   https://github.com/Wiz-IO
 
 import os, sys
 from os.path import join
@@ -24,7 +24,6 @@ def dev_header(target, source, env):
 
 def dev_create_template(env):
     D = join(env.subst("$PROJECT_DIR"), "config")
-    #copy config files to project
     if False == os.path.isdir(D): 
         os.makedirs(D)
         S = join(env.PioPlatform().get_package_dir("framework-quectel"), "templates", env.BoardConfig().get("build.core"))
@@ -40,11 +39,9 @@ def dev_create_template(env):
             dst = join(D, I)
             if False == os.path.isfile(dst): 
                 copyfile(join(S, I), dst)
-    #return
-    #copy main.c if file not exist
     D = join(env.subst("$PROJECT_DIR"), "src")
     S = join(env.PioPlatform().get_package_dir("framework-quectel"), "templates", env.BoardConfig().get("build.core"))
-    if False == os.path.isfile( join(D, "main.c") ):
+    if False == os.path.isfile( join(D, "main.c") ) and False == os.path.isfile( join(D, "main.cpp") ):
         copyfile( join(S, "main.c"), join(D, "main.c") )
 
 def dev_compiler(env):
@@ -59,62 +56,94 @@ def dev_compiler(env):
         RANLIB="arm-none-eabi-ranlib",
         SIZETOOL="arm-none-eabi-size",
         ARFLAGS=["rc"],
-        SIZEPROGREGEXP=r"^(?:\.text|\.data|\.bootloader)\s+(\d+).*",
+        SIZEPROGREGEXP=r"^(?:\.text|\.rodata)\s+(\d+).*",
         SIZEDATAREGEXP=r"^(?:\.data|\.bss|\.noinit)\s+(\d+).*",
         SIZECHECKCMD="$SIZETOOL -A -d $SOURCES",
-        SIZEPRINTCMD='$SIZETOOL --mcu=$BOARD_MCU -C -d $SOURCES',
-        PROGSUFFIX=".elf",  
+        SIZEPRINTCMD='$SIZETOOL -B -d $SOURCES',
+        PROGSUFFIX=".elf", 
     )
+    env.cortex = ["-mcpu=cortex-m4", "-mfloat-abi=hard", "-mfpu=fpv4-sp-d16", "-mthumb"] 
 
 def dev_init(env, platform):
     dev_create_template(env)
     dev_compiler(env)
     framework_dir = env.PioPlatform().get_package_dir("framework-quectel")
     core = env.BoardConfig().get("build.core")     
-    variant = env.BoardConfig().get("build.variant")  
-    lib_dir = join(framework_dir, "libraries")
-    linker = join(framework_dir, "libraries", "c_{}.ld".format(core))
-    env.firmware = env.BoardConfig().get("build.firmware", "").replace("-", "_").replace(".", "_").upper()   
+    SDK = join(framework_dir, platform, core,  env.BoardConfig().get("build.sdk", "SDK15"))
+    disable_nano = env.BoardConfig().get("build.disable_nano", "0") # defaut nano is enabled
+    nano = []    
+    if disable_nano == "0":
+        nano = ["-specs=nano.specs", "-u", "_printf_float", "-u", "_scanf_float" ]
+        
     env.Append(
-       CPPDEFINES = [ # -D                         
-            platform.upper(), "CORE_" + core.upper().replace("-", "_"),            
+       CPPDEFINES = [ # -D                        
+            platform.upper(), 
+            "CORE_" + core.upper().replace("-", "_"),            
         ],        
         CPPPATH = [ # -I
-            join(framework_dir, platform, core),
-            join(framework_dir, platform, core, "include"),
-            join(framework_dir, platform, core, "ril", "inc"),   
+            join(SDK),
+            join(SDK, "include"),
+            join(SDK, "ril", "inc"),  
+            join(SDK, "wizio"), 
             join("$PROJECT_DIR", "lib"),
             join("$PROJECT_DIR", "include"),
             join("$PROJECT_DIR", "config")      
-        ],         
-        CFLAGS = [
-            "-Os", "-g",      
-            "-mcpu=cortex-m4",
-            "-mfloat-abi=hard",
-            "-mfpu=fpv4-sp-d16",       
-            "-mthumb", 
-            "-std=c11",                              
+        ],  
+
+        CFLAGS = [      
+            "-Wall", 
+            "-Wfatal-errors",
+            "-Wstrict-prototypes",
+            "-Wno-unused-function",
+            "-Wno-unused-value",            
+            "-Wno-unused-variable",
+            "-Wno-unused-but-set-variable",            
+            "-Wno-int-conversion",                            
+            "-Wno-pointer-sign",  
+            "-Wno-char-subscripts",
+            "-mno-unaligned-access", 
+        ],
+        CXXFLAGS = [   
+            "-std=c++11",                              
+            "-fno-rtti",
+            "-fno-exceptions", 
+            "-fno-non-call-exceptions",
+            "-fno-use-cxa-atexit",
+            "-fno-threadsafe-statics",
+            "-Wno-unused-function",            
+            "-Wno-unused-variable",
+            "-Wno-unused-value"
+        ],    
+        CCFLAGS = [
+            env.cortex,
+            "-Os",                          
             "-fdata-sections",      
             "-ffunction-sections",
-            "-fno-builtin",
             "-fno-strict-aliasing",
-            "-fsingle-precision-constant",             
-            "-Wall",
-            "-Wstrict-prototypes", 
-            "-Wp,-w",                                 
-        ],        
-        LINKFLAGS = [    
-            "-mcpu=cortex-m4",
-            "-mfloat-abi=hard",
-            "-mfpu=fpv4-sp-d16",       
-            "-mthumb",                                             
+            "-fsingle-precision-constant",     
+            "-Wall", 
+            "-Wfatal-errors",                                
+            #"-Wp,-w",            
+        ],   
+
+        LINKFLAGS = [ 
+            env.cortex,
+            "-Os",                                               
             "-nostartfiles",        
             "-Xlinker", "--gc-sections",              
             "-Wl,--gc-sections",
+            "--entry=proc_main_task",
+            nano
         ],    
-        LIBPATH = [ lib_dir ],      
-        LDSCRIPT_PATH = linker, 
-        LIBS = [ "gcc", "m", "_app_start_{}".format(core), ],                  
+
+        LDSCRIPT_PATH = join(SDK, "cpp_bc66.ld"), 
+
+        LIBPATH = [ SDK ],  # *.a
+
+        LIBSOURCE_DIRS = [ SDK ],  # user libraries     
+
+        LIBS = [ "gcc", "m", "_app_start" ],          
+
         BUILDERS = dict(
             ElfToBin = Builder(
                 action = env.VerboseAction(" ".join([
@@ -134,40 +163,26 @@ def dev_init(env, platform):
         UPLOADCMD = dev_uploader
     )
     libs = []    
+
     libs.append(
         env.BuildLibrary(
-            join("$BUILD_DIR", "_opencpu"),
-            join(framework_dir, platform, core),
+            join("$BUILD_DIR", "_ril"),
+            join(SDK, "ril", "src"),
     ))  
+
+    # PROJECT 
     libs.append(
         env.BuildLibrary(
             join("$BUILD_DIR", "_custom_lib"), 
             join("$PROJECT_DIR", "lib"),                       
-    ))     
+    ))   
+
     libs.append(
         env.BuildLibrary(
             join("$BUILD_DIR", "_custom_config"), 
             join("$PROJECT_DIR", "config"),                       
     ))     
-
-    if env.firmware != "": # ADD API
-        env.Append(
-            CPPPATH = [ # -I        
-                join(framework_dir,  "api", core),
-                join(framework_dir,  "api", core, "include"),
-                join(framework_dir,  "api", core, "FreeRTOS", "Source", "include"), 
-                join(framework_dir,  "api", core, "lwip", "src", "include"),      
-                join(framework_dir,  "api", core, "lwip", "ports", "include"),           
-            ],             
-            LIBS = [ "_{}".format(env.firmware) ]
-        )
-        libs.append(
-            env.BuildLibrary(
-                join("$BUILD_DIR", "_api"),
-                join(framework_dir, "api", core),
-        ))          
-
+    
     env.Append(LIBS = libs)
-
 
  
