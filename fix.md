@@ -1,3 +1,6 @@
+[10.03.2020]
+* New SDK for Quectel BC66
+
 [18.12.2019]
 * Add PSM.EDRX support for BC66 ( Redferne Bellini )
 * Add tone() for BC66 ( Redferne Bellini )
