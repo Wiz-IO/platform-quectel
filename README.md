@@ -51,8 +51,8 @@ paste https://github.com/Wiz-IO/platform-quectel
 
 ## Thanks to
 
+* Quectel Support
 * Redferne Bellini
-* Radu Igret ( Quectel )
 * Ivan Kravets ( PlatformIO )
 * [comet.bg](https://www.comet.bg/?cid=92)
 
