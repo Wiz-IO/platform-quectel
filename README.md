@@ -1,3 +1,5 @@
+# Update is coming, do not install/update while this message...
+
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
