@@ -1,0 +1,26 @@
+{
+  "name": "Quectel BG95 module",
+  "url": "https://www.quectel.com/product/bg95.htm",
+  "build": {
+    "core": "bg95",
+    "f_cpu": "1200000000L",
+    "mcu": "ARM, MDM9205",
+    "variant": "bg95"
+  },
+  "debug": {
+    "tools": {
+      "uart": {
+        "onboard": true,
+        "extra_cmds": [],
+        "load_cmd": [],
+        "server": {}
+      }
+    }
+  },  
+  "frameworks": ["threadx", "arduino"],
+  "vendor": "Quectel",
+  "upload": {
+        "maximum_ram_size": 2621000,
+        "maximum_size":     1310000
+  }
+}
