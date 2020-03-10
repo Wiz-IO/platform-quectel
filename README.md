@@ -2,7 +2,7 @@
 
 **A few words in the beginning**
 * **Version: 2.1.01** ( [look here, if there is something new](https://github.com/Wiz-IO/platform-quectel/wiki/FIX) )
-* * [NEW BC66 more info here](https://github.com/Wiz-IO/platform-quectel/wiki/SDK-BC66)
+* * [NEW SDK for BC66 more info here](https://github.com/Wiz-IO/platform-quectel/wiki/SDK-BC66)
 * * NEW: BG96 integrated application uploader
 * This project not an official product of Quectel and is based on **reverse engineering**
 * Frameworks: 
