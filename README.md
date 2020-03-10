@@ -4,10 +4,9 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
-* **Version: 2.0.20** ( [look here, if there is something new](https://github.com/Wiz-IO/platform-quectel/blob/master/fix.md) )
-* * Python 2 & 3 compatable in process, if issue - report
+* **Version: 2.1.01** ( [look here, if there is something new](https://github.com/Wiz-IO/platform-quectel/blob/master/fix.md) )
+* * [NEW BC66 more info here](https://github.com/Wiz-IO/platform-quectel/wiki/SDK-BC66)
 * * NEW: BG96 integrated application uploader
-* * NEW: EC2x [OpenLinux](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-OpenLinux), Arduino - coming soon
 * This project not an official product of Quectel and is based on **reverse engineering**
 * Frameworks: 
 * * OpenCPU ( M66, MC60, BC66 ) 
