@@ -1,7 +1,7 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
-* **Version: 2.0.14** ( [look here, if there is something new](https://github.com/Wiz-IO/platform-quectel/blob/master/fix.md) )
+* **Version: 2.0.20** ( [look here, if there is something new](https://github.com/Wiz-IO/platform-quectel/blob/master/fix.md) )
 * * Python 2 & 3 compatable in process, if issue - report
 * * NEW: BG96 integrated application uploader
 * * NEW: EC2x [OpenLinux](https://github.com/Wiz-IO/platform-quectel/wiki/Framework-OpenLinux), Arduino - coming soon
