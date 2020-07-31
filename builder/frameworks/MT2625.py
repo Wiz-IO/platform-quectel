@@ -439,7 +439,7 @@ class MT2625:
         app_data = self.openApplication(filename)
         app_size = len(app_data)
         ASSERT( app_size <= app_max_size, "Application max size limit" )
-        PB_BEGIN( 'Writhing <' )
+        PB_BEGIN( 'Writing <' )
         first_page = self.da_a2p(app_address)
         first_address = self.da_p2a(first_page) 
         last_page = self.da_a2p(app_address + app_size) 
