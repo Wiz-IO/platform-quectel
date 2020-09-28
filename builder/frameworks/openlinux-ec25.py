@@ -35,7 +35,7 @@ def dev_compiler(env):
         SIZEDATAREGEXP=r"^(?:\.data|\.bss|\.noinit)\s+(\d+).*",
         SIZECHECKCMD="$SIZETOOL -A -d $SOURCES",
         SIZEPRINTCMD='$SIZETOOL --mcu=$BOARD_MCU -C -d $SOURCES',
-        PROGSUFFIX=".elf",  
+        PROGSUFFIX="",  
     )
     env.Append(UPLOAD_PORT='ADB') #upload_port = "must exist variable"
 
