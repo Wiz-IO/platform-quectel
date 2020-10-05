@@ -12,6 +12,7 @@
 * * Arduino ( BC66, M66, BG96, EC2x )
 * **Windows**, Linux, macOS ( test and report )
 * Read [WIKI](https://github.com/Wiz-IO/platform-quectel/wiki/PLATFORM-QUECTEL)
+* [Examples BC66](https://github.com/Wiz-IO/platformio-quectel-examples/tree/master/BC66_SDK) 
 * [Examples](https://github.com/Wiz-IO/platformio-quectel-examples) 
 
 **it should look like this...**
