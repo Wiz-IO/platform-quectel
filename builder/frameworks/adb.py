@@ -67,6 +67,6 @@ def upload_app(module, app, adb):
     ADB_COMMAND_PREFIX = join(adb, "adb")
     push(app_name, "/home/root/") 
     shell("chmod +x /home/root/" + app[1]) 
-    shell("/home/root/" + app[1]) # run?
+    #shell("/home/root/" + app[1]) # run manualy
     return 0
   
