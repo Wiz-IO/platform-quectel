@@ -7,7 +7,7 @@
 * This project not an official product of Quectel and is based on **reverse engineering**
 * Frameworks: 
 * * OpenCPU ( M66, MC60, BC66 ) 
-* * ThreadX ( BG96 )
+* * ThreadX ( BG96 ) (note: BG95 BG77 comming soon )
 * * OpenLinux ( EC21, EC25 )
 * * Arduino ( BC66, M66, BG96, EC2x )
 * **Windows**, Linux, macOS ( test and report )
