@@ -51,16 +51,16 @@ paste https://github.com/Wiz-IO/platform-quectel
 
 * Quectel Support
 * Redferne Bellini
-* ชัยวัฒน์ แซ่ฮุ้ย (Art of Destroy)
+* ชัยวัฒน์ แซ่ฮุ้ย ( Art of Destroy )
 * Ivan Kravets ( PlatformIO )
-* [comet.bg](https://www.comet.bg/?cid=92)
+* [comet.bg](https://www.comet.bg/en/)
 
 **Support links**
 
-* https://forums.quectel.com/
-* https://www.quectel.com/support/contact.htm
-* https://community.platformio.org
-* https://www.comet.bg/?cid=92
+* [Forum Quectel](https://forums.quectel.com/)
+* [Support Quectel](https://www.quectel.com/support/contact.htm)
+* [Forum PlatformIO]https://community.platformio.org
+* [Comet Electronics](https://store.comet.bg/en/Catalogue/Manufacturer/117/QUECTEL/)
 * 
 
 >If you want to help / support:   
