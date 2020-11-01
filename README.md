@@ -3,7 +3,7 @@
 **A few words in the beginning**
 * **Version: 2.1.03** ( [look here, if there is something new](https://github.com/Wiz-IO/platform-quectel/wiki/FIX) )
 * * [NEW SDK for BC66 more info here](https://github.com/Wiz-IO/platform-quectel/wiki/SDK-BC66)
-* * Basic Arduino for EC25 ( Serial and Network )
+* * Basic Arduino for EC25
 * This project not an official product of Quectel and is based on **reverse engineering**
 * Frameworks: 
 * * OpenCPU ( M66, MC60, BC66 ) 
