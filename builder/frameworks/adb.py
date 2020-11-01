@@ -53,7 +53,7 @@ def _exec_command(adb_cmd):
         print('\n' + result[1])
     return result    
 
-
+#### MANUAL Upload & Run ####
 #adb push app_name /home/root
 #adb shell
 #cd /home/root
