@@ -1,9 +1,9 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
 **A few words in the beginning**
-* **Version: 2.1.02** ( [look here, if there is something new](https://github.com/Wiz-IO/platform-quectel/wiki/FIX) )
+* **Version: 2.1.03** ( [look here, if there is something new](https://github.com/Wiz-IO/platform-quectel/wiki/FIX) )
 * * [NEW SDK for BC66 more info here](https://github.com/Wiz-IO/platform-quectel/wiki/SDK-BC66)
-* * NEW: BG96 integrated application uploader
+* * Basic Arduino for EC25 ( Serial and Network )
 * This project not an official product of Quectel and is based on **reverse engineering**
 * Frameworks: 
 * * OpenCPU ( M66, MC60, BC66 ) 
