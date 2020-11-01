@@ -1,11 +1,11 @@
 {
-  "name": "Quectel EC2x module",
+  "name": "Quectel EC25 EVB",
   "url": "https://www.quectel.com/product/ec25.htm",
   "build": {
-    "core": "ec25",
+    "core": "ec2x",
     "f_cpu": "1200000000L",
     "mcu": "ARM, MDM9607",
-    "variant": "ec25"
+    "variant": "ec25-evb"
   },
   "debug": {
     "tools": {
