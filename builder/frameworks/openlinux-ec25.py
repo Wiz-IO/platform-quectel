@@ -86,7 +86,7 @@ def dev_init(env, platform):
             join(env.framework_dir, platform, env.BoardConfig().get("build.core"), "lib"), 
             join("$PROJECT_DIR", "lib")
         ], 
-        LIBS = [ "m221", "pthread" ],          
+        LIBS     = [ "m221", "pthread", "ssl", "crypto"],         
         BUILDERS = dict(
             ElfToBin   = Builder(action = env.VerboseAction(dev_none, " "), suffix = ".1"),    
             MakeHeader = Builder(action = env.VerboseAction(dev_none, " "), suffix = ".2")       
