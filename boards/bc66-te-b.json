@@ -1,0 +1,26 @@
+{
+  "name": "Quectel BC66NB-TE-B",
+  "url": "https://www.quectel.com/product/bc66.htm",
+  "build": {
+    "core": "bc66",    
+    "f_cpu": "78000000L",
+    "mcu": "ARM, MT2625",
+    "variant": "bc66-te-b"
+  },
+  "debug": {
+    "tools": {
+      "uart": {
+        "onboard": true,
+        "extra_cmds": [],
+        "load_cmd": [],
+        "server": {}
+      }
+    }
+  },
+  "frameworks": ["opencpu", "arduino"],
+  "vendor": "Quectel",
+  "upload": {
+        "maximum_ram_size": 100000,
+        "maximum_size": 200000
+  }
+}
