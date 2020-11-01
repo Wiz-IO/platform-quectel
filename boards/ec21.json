@@ -1,11 +1,21 @@
 {
-  "name": "Quectel EC21 module",
+  "name": "Quectel EC2x module",
   "url": "https://www.quectel.com/product/ec25.htm",
   "build": {
     "core": "ec25",
     "f_cpu": "1200000000L",
     "mcu": "ARM, MDM9607",
     "variant": "ec25"
+  },
+  "debug": {
+    "tools": {
+      "uart": {
+        "onboard": true,
+        "extra_cmds": [],
+        "load_cmd": [],
+        "server": {}
+      }
+    }
   },  
   "frameworks": ["openlinux", "arduino"],
   "vendor": "Quectel",
