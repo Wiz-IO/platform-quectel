@@ -381,6 +381,8 @@ class MT2625:
             self.s.write(data[:1024])                        
             data = data[1024:]  
             PB_STEP()   
+        # Give the chip some time
+        time.sleep(0.5)
         ASSERT( self.cmd("", 10) == b"\x1D\x3D\0\0\0\0\0\0\0\0", "EPP Answer" ) 
         self.uart_speed_max()           
         # DA_2
