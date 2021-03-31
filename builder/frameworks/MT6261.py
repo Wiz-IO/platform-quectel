@@ -61,6 +61,7 @@ CMD_JUMP_DA                 =b'\xD5'
 CMD_SEND_DA                 =b'\xD7'
 CMD_SEND_EPP                =b'\xD9'
 
+DA_SYNC                     =b'\xC0'
 DA_CONFIG_EMI               =b'\xD0'
 DA_POST_PROCESS             =b'\xD1'
 DA_SPEED                    =b'\xD2'
@@ -306,6 +307,29 @@ class MT6261:
         self.send(b"\0\0\0\0", 256) # EMI_SETTINGS ??     
         PB_END()
 
+    def da_changebaud(self, baud=460800):
+        speed_table = {
+            921600: UART_BAUD_921600,
+            460800: UART_BAUD_460800,
+            230400: UART_BAUD_230400,
+            115200: UART_BAUD_115200
+        }
+        r = self.send(DA_SPEED + speed_table.get(baud,
+                                                 UART_BAUD_460800) + b"\x01", 1)
+        ASSERT(r == ACK, "DA Change Baud CMD ACK Fail")
+        self.send(ACK)
+        self.s.baudrate = baud
+        for i in range(10):
+            r = self.send(DA_SYNC, 1)
+            if (r == DA_SYNC):
+                break
+            time.sleep(0.01)
+        ASSERT(r == DA_SYNC, "DA SPEED sync fail")
+        ASSERT(self.send(ACK, 1) == ACK, "DA SPEED ACK fail")
+        for i in range(256):
+            loop_val = struct.pack(">B", i)
+            ASSERT(self.send(loop_val, 1) == loop_val, "DA SPEED Loop fail")
+
     def da_mem(self, address, size, fota = NACK, mem_block_count = 1, type = 0x00007000): # NACK: disable FOTA feature  
         address %= 0x08000000
         r = self.send(DA_MEM + fota + struct.pack(">BIII", mem_block_count, address, address + size - 1, type), 1)
@@ -375,10 +399,11 @@ class MT6261:
         PB_END()        
 
 ######################################################################
-def upload_app(module, file_name, com_port):  
+def upload_app(module, file_name, com_port, baudrate=460800):
     m = MT6261( Serial( com_port, 115200 ) )
     m.connect()  
     m.da_start()
+    m.da_changebaud(baudrate)
     m.uploadApplication(module, file_name)
     #m.da_reset() 
     
