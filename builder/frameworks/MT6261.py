@@ -44,6 +44,15 @@ from serial import Serial
 from binascii import hexlify
 import inspect
 
+############################################################################
+PYTHON2 = sys.version_info[0] < 3  # True if on pre-Python 3
+if PYTHON2:
+    pass
+else:
+    def xrange(*args, **kwargs):
+        return iter( range(*args, **kwargs) )
+############################################################################
+
 DEBUG = False
 
 NONE                        =''
@@ -61,6 +70,7 @@ CMD_JUMP_DA                 =b'\xD5'
 CMD_SEND_DA                 =b'\xD7'
 CMD_SEND_EPP                =b'\xD9'
 
+DA_SYNC                     =b'\xC0'
 DA_CONFIG_EMI               =b'\xD0'
 DA_POST_PROCESS             =b'\xD1'
 DA_SPEED                    =b'\xD2'
@@ -92,7 +102,7 @@ if sys.version_info >= (3, 0):
         return iter(range(*args, **kwargs))
 
 def ERROR(message):
-    print("\n\033[31mERROR: {}\n\r".format(message))
+    print("ERROR: {}\n\r".format(message))
     exit(2)
 
 def ASSERT(flag, message):
@@ -101,7 +111,8 @@ def ASSERT(flag, message):
 
 def PB_BEGIN():
     if DEBUG == False:
-        sys.stdout.write('\033[94m<')
+        #sys.stdout.write('\033[94m<')
+        pass
 
 def PB_STEP():
     if DEBUG == False:
@@ -112,6 +123,9 @@ def PB_END():
         sys.stdout.write("> DONE\n")
 
 def hexs(s):
+    if False == PYTHON2: 
+        if str == type(s):
+            s = bytearray(s, 'utf-8')
     return hexlify(s).decode("ascii").upper()
 
 class MT6261:
@@ -139,12 +153,18 @@ class MT6261:
 
     def crc_byte(self, data, chs=0):
         for i in xrange(0, len(data), 1):
-            chs = chs&0xff + ord(data[i])
+            if PYTHON2:
+                chs = chs&0xff + ord(data[i])
+            else:
+                chs = chs&0xff + data[i]
         return chs
 
     def crc_word(self, data, chs=0):
         for i in xrange(0, len(data), 1):
-            chs += ord(data[i])
+            if PYTHON2:
+                chs += ord(data[i])
+            else:
+                chs += data[i]
         return chs & 0xFFFF        
 
     def send(self, data, sz = 0):
@@ -354,13 +374,37 @@ class MT6261:
         if app_size < 0x40:
             ERROR("APP min size")
         if check == True:
-            if app_data[:3] != "MMM": 
+            if app_data[:3] != b"MMM": 
                 ERROR("APP: MMM")
-            if app_data[8:17] != "FILE_INFO": 
+            if app_data[8:17] != b"FILE_INFO": 
                 ERROR("APP: FILE_INFO") 
         return app_data  
 
-    def uploadApplication(self, id, filename, check=True):  
+    ### Ajay Bhargav
+    ###     https://github.com/ajaybhargav
+    def da_changebaud(self, baud=460800):
+        speed_table = {
+            921600: UART_BAUD_921600,
+            460800: UART_BAUD_460800,
+            230400: UART_BAUD_230400,
+            115200: UART_BAUD_115200
+        }
+        r = self.send(DA_SPEED + speed_table.get(baud, UART_BAUD_460800) + b"\x01", 1)
+        ASSERT(r == ACK, "DA Change Baud CMD ACK Fail")
+        self.send(ACK)
+        self.s.baudrate = baud
+        for i in range(10):
+            r = self.send(DA_SYNC, 1)
+            if (r == DA_SYNC):
+                break
+            time.sleep(0.01)
+        ASSERT(r == DA_SYNC, "DA SPEED sync fail")
+        ASSERT(self.send(ACK, 1) == ACK, "DA SPEED ACK fail")
+        for i in range(256):
+            loop_val = struct.pack(">B", i)
+            ASSERT(self.send(loop_val, 1) == loop_val, "DA SPEED Loop fail")
+
+    def uploadApplication(self, id, filename, check=False):  
         ASSERT( id in self.DEVICE, "Unknown module: {}".format(id) ) 
         app_address = self.DEVICE[id]["address"]
         app_max_size = self.DEVICE[id]["max_size"]
@@ -379,6 +423,7 @@ def upload_app(module, file_name, com_port):
     m = MT6261( Serial( com_port, 115200 ) )
     m.connect()  
     m.da_start()
+    m.da_changebaud(460800)
     m.uploadApplication(module, file_name)
     #m.da_reset() 
     
