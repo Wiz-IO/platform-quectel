@@ -1,6 +1,6 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
-**Тhe platform is frozen indefinitely - lack of support from stakeholders...
-More precisely: because of incompetent Quectel managers
+**Тhe platform is frozen indefinitely - lack of support from stakeholders...<br>
+More precisely: because of incompetent Quectel managers<br>
 TIP: If you have an alternative - run away from Quectel**
 
 **A few words in the beginning**
