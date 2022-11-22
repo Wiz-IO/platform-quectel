@@ -57,7 +57,6 @@ paste https://github.com/Wiz-IO/platform-quectel
 * Ajay Bhargav
 * ชัยวัฒน์ แซ่ฮุ้ย ( Art of Destroy )
 * Ivan Kravets ( PlatformIO )
-* [comet.bg](https://www.comet.bg/en/)
 
 **Support links**
 
