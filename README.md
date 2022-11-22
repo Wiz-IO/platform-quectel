@@ -64,7 +64,6 @@ paste https://github.com/Wiz-IO/platform-quectel
 * [Forum Quectel](https://forums.quectel.com/)
 * [Support Quectel](https://www.quectel.com/support/contact.htm)
 * [Forum PlatformIO](https://community.platformio.org)
-* [Comet Electronics](https://store.comet.bg/en/Catalogue/Manufacturer/117/QUECTEL/)
 * 
 
 >If you want to help / support:   
