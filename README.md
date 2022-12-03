@@ -1,7 +1,7 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 ## Тhe platform is frozen indefinitely - lack of support from stakeholders...<br>
-## More precisely: because of incompetent Quectel managers<br>
-## TIP: If you have an alternative - run away from Quectel**
+## More precisely: because of incompetent Quectel managers
+## TIP: If you have an alternative - run away from Quectel
 
 **A few words in the beginning**
 * **Version: 2.1.03** ( [look here, if there is something new](https://github.com/Wiz-IO/platform-quectel/wiki/FIX) )
