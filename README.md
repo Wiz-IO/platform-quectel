@@ -1,6 +1,6 @@
 # Quectel development platform for [PlatformIO](http://platformio.org)
 
-##Тhe platform is frozen indefinitely - lack of support from stakeholders...
+## Тhe project is frozen indefinitely - lack of support from stakeholders...
 **I will not describe the reasons because they are threatening me with a legal responsibility<br>**
 **I will delete the Framework ( Source Codes ) due to license restrictions<br>**
 **TIP: If you have an alternative - run away from Quectel**
